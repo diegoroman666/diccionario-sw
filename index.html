@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno de Configuración - Liceo de Requínoa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Animaciones globales */
+        @keyframes flow {
+            0% {
+                left: 0%;
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .animate-flow {
+            animation: flow 2s infinite linear;
+        }
+
+        @keyframes scan {
+
+            0%,
+            100% {
+                top: 0%;
+            }
+
+            50% {
+                top: 100%;
+            }
+        }
+
+        .animate-scan {
+            animation: scan 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        .animate-pulse-custom {
+            animation: pulse-custom 2s infinite;
+        }
+
+        @keyframes rotation {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-rotation {
+            animation: rotation 10s infinite linear;
+        }
+
+        /* Estilos de profundidad */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-stone-200 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div
+        class="max-w-6xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[680px] border-[12px] border-white relative">
+
+        <!-- Espiral del cuaderno -->
+        <div
+            class="hidden md:flex flex-col justify-around absolute left-[49.2%] top-0 bottom-0 w-4 z-20 py-8 pointer-events-none">
+            <script>
+                for (let i = 0; i < 16; i++) {
+                    document.write('<div class="w-full h-4 bg-gradient-to-r from-stone-400 to-stone-500 rounded-full border-b border-stone-600 shadow-md transform rotate-12 mb-1"></div>');
+                }
+            </script>
+        </div>
+
+        <!-- LADO IZQUIERDO: SIMULACIONES ÚNICAS -->
+        <div
+            class="w-full md:w-1/2 bg-slate-950 p-8 md:p-12 flex flex-col justify-between border-r border-stone-200 text-white">
+            <div>
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="concept-icon"
+                        class="p-4 bg-white/10 rounded-2xl border border-white/20 text-red-500 shadow-xl">
+                        <!-- Icono dinámico -->
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black uppercase tracking-tighter text-stone-400">Laboratorio Requínoa
+                        </h3>
+                        <p class="text-[10px] font-bold text-red-500">Módulo: Configuración</p>
+                    </div>
+                </div>
+
+                <h4 class="text-sm font-bold text-stone-300 mb-6 flex items-center gap-2 uppercase tracking-widest">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+                    Simulación Técnica
+                </h4>
+
+                <div id="simulation-box"
+                    class="bg-black/40 rounded-[2.5rem] h-64 flex items-center justify-center relative overflow-hidden border border-white/10 shadow-2xl p-6">
+                    <!-- Contenido de simulación dinámico -->
+                </div>
+
+                <div class="mt-8 grid grid-cols-2 gap-4">
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                        <p class="text-[9px] text-stone-500 uppercase font-black mb-1">Capa OSI</p>
+                        <p id="osi-layer" class="text-xs font-bold text-red-400 font-mono">Capa 3</p>
+                    </div>
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+                        <p class="text-[9px] text-stone-500 uppercase font-black mb-1">Tráfico</p>
+                        <p class="text-xs font-bold text-green-400 font-mono">Encapsulado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LADO DERECHO: CONTENIDO -->
+        <div class="w-full md:w-1/2 bg-white p-8 md:p-12 flex flex-col">
+            <div class="flex justify-between items-center mb-8">
+                <span id="page-indicator"
+                    class="bg-red-500 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-red-200">HOJA
+                    1 DE 20</span>
+                <div class="flex gap-1">
+                    <div class="w-2 h-2 bg-stone-200 rounded-full"></div>
+                    <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                </div>
+            </div>
+
+            <div class="mb-auto">
+                <h2 id="concept-title"
+                    class="text-4xl font-black text-stone-900 mb-6 leading-tight uppercase tracking-tight">
+                    Cargando...
+                </h2>
+
+                <div class="space-y-8">
+                    <section>
+                        <h4
+                            class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-3 flex items-center gap-1">
+                            Definición Formal
+                        </h4>
+                        <p id="concept-definition"
+                            class="text-stone-700 text-lg leading-relaxed font-serif italic border-l-4 border-red-100 pl-6">
+                            ...
+                        </p>
+                    </section>
+
+                    <section class="bg-stone-50 p-6 rounded-3xl border border-stone-100">
+                        <h4 class="text-[10px] font-black text-stone-400 uppercase tracking-widest mb-3">Escenario:
+                            Liceo de Requínoa</h4>
+                        <p id="concept-example" class="text-stone-600 leading-snug font-medium text-sm">
+                            ...
+                        </p>
+                    </section>
+                </div>
+            </div>
+
+            <!-- CONTROLES -->
+            <div class="mt-12 flex items-center justify-between gap-6">
+                <button id="prevBtn"
+                    class="w-14 h-14 rounded-2xl bg-white border border-stone-100 text-stone-600 hover:bg-stone-50 flex items-center justify-center transition-all shadow-lg active:scale-90">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="flex-1">
+                    <div class="h-3 w-full bg-stone-100 rounded-full overflow-hidden p-0.5">
+                        <div id="progress-bar" class="h-full bg-red-500 rounded-full transition-all duration-500 w-0">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="nextBtn"
+                    class="w-14 h-14 rounded-2xl bg-red-500 text-white hover:bg-red-600 flex items-center justify-center transition-all shadow-lg shadow-red-200 active:scale-90">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-8 text-stone-400 text-[10px] font-bold uppercase tracking-[0.3em]">
+        Guía Interactiva - Conectividad & Redes
+    </footer>
+
+    <script>
+        const concepts = [
+            {
+                title: "Dirección IP",
+                type: "IP",
+                layer: "Capa 3 (Red)",
+                icon: 'globe',
+                definition: "Etiqueta numérica que identifica de manera lógica y única a un dispositivo en una red que utiliza el protocolo IP.",
+                example: "En el Taller de Requínoa, cada PC de la fila A tiene una IP correlativa (192.168.1.10, .11, .12) para que el profesor los identifique."
+            },
+            {
+                title: "NAT",
+                type: "NAT",
+                layer: "Capa 3/4",
+                icon: 'refresh',
+                definition: "Network Address Translation: Proceso de modificar las direcciones IP de los paquetes para que una red privada salga a Internet.",
+                example: "Tu celular y el PC del Liceo comparten la misma IP pública del colegio para navegar en YouTube, gracias al NAT del Router."
+            },
+            {
+                title: "Router",
+                type: "ROUTER",
+                layer: "Capa 3 (Red)",
+                icon: 'wifi',
+                definition: "Dispositivo de interconexión de redes que decide el camino más óptimo para los paquetes basándose en su tabla de enrutamiento.",
+                example: "Es el equipo principal del rack del Liceo que conecta nuestra red interna con el enlace de fibra óptica exterior."
+            },
+            {
+                title: "Firewall",
+                type: "FIREWALL",
+                layer: "Capa 3 a 7",
+                icon: 'shield',
+                definition: "Sistema de defensa perimetral que filtra el tráfico entrante y saliente según políticas de seguridad.",
+                example: "Si intentas entrar a un sitio de juegos bloqueado, el Firewall del Liceo detiene el paquete y registra la incidencia."
+            },
+            {
+                title: "DHCP",
+                type: "DHCP",
+                layer: "Capa 7 (App)",
+                icon: 'cpu',
+                definition: "Dynamic Host Configuration Protocol: Protocolo que automatiza la entrega de parámetros de red a los clientes.",
+                example: "Al entrar a la biblioteca y conectar el Wi-Fi, no configuras nada; el servidor DHCP te asigna todo al instante."
+            },
+            {
+                title: "Switch",
+                type: "SWITCH",
+                layer: "Capa 2 (Enlace)",
+                icon: 'layers',
+                definition: "Dispositivo que conecta equipos en una LAN enviando tramas solo al puerto donde se encuentra el destino (usando MAC).",
+                example: "El Switch del taller une los 20 PCs de los alumnos para que puedan compartir archivos a máxima velocidad."
+            },
+            {
+                title: "Máscara de Subred",
+                type: "MASK",
+                layer: "Capa 3 (Red)",
+                icon: 'settings',
+                definition: "Prefijo de red que indica qué parte de la dirección IP pertenece a la red y qué parte al host.",
+                example: "La máscara 255.255.255.0 le dice a los equipos de administración que no pueden ver a los equipos de los alumnos."
+            },
+            {
+                title: "Gateway",
+                type: "GATEWAY",
+                layer: "Capa 3 (Red)",
+                icon: 'share',
+                definition: "Puerta de enlace predeterminada que actúa como el nodo de salida hacia redes externas.",
+                example: "Es la IP 192.168.1.1 en los PCs del Liceo; sin ella, podrías hablar con tu compañero de al lado, pero no salir a Google."
+            },
+            {
+                title: "DNS",
+                type: "DNS",
+                layer: "Capa 7 (App)",
+                icon: 'help',
+                definition: "Domain Name System: Sistema que traduce nombres de dominio (texto) a direcciones IP (números).",
+                example: "Escribes 'aulavirtual.cl' y el DNS del Liceo te lleva al servidor correcto sin que sepas su dirección IP real."
+            },
+            {
+                title: "Servidor",
+                type: "SERVER",
+                layer: "Capa 7 (App)",
+                icon: 'server',
+                definition: "Sistema informático que atiende peticiones de clientes y les devuelve una respuesta con datos o servicios.",
+                example: "El servidor central del Liceo de Requínoa entrega las carpetas personales de cada estudiante al iniciar sesión."
+            },
+            {
+                title: "Cliente",
+                type: "CLIENT",
+                icon: 'monitor',
+                definition: "Dispositivo o software que inicia la comunicación solicitando un recurso a un servidor.",
+                example: "Tu navegador Chrome en el taller es el cliente cuando pide descargar la guía de configuración del portal."
+            },
+            {
+                title: "Protocolo TCP",
+                type: "TCP",
+                layer: "Capa 4 (Transporte)",
+                icon: 'terminal',
+                definition: "Protocolo orientado a conexión que garantiza que los datos lleguen completos y en orden mediante acuses de recibo.",
+                example: "Cuando descargas un examen, el TCP asegura que no falte ninguna letra del documento original."
+            },
+            {
+                title: "Dirección MAC",
+                type: "MAC",
+                layer: "Capa 2 (Enlace)",
+                icon: 'key',
+                definition: "Media Access Control: Identificador físico de 48 bits grabado de fábrica en la tarjeta de red.",
+                example: "Si cambias tu PC por el de otro compañero, el administrador del Liceo lo sabrá porque la dirección MAC es distinta."
+            },
+            {
+                title: "Red LAN",
+                type: "LAN",
+                layer: "Capa 1 y 2",
+                icon: 'database',
+                definition: "Local Area Network: Red que conecta computadoras dentro de una extensión geográfica pequeña.",
+                example: "Toda la infraestructura de cables y canaletas que ves en las salas del Liceo constituye nuestra red LAN."
+            },
+            {
+                title: "Topología Estrella",
+                type: "STAR",
+                layer: "Física",
+                icon: 'layers',
+                definition: "Diseño de red donde todos los nodos están conectados individualmente a un nodo central (Hub o Switch).",
+                example: "Es el diseño del taller de Requínoa: si un cable de un PC se corta, los otros 19 siguen funcionando perfectamente."
+            },
+            {
+                title: "Seguridad",
+                type: "SECURITY",
+                layer: "Todas las Capas",
+                icon: 'lock',
+                definition: "Conjunto de protocolos y prácticas para proteger la confidencialidad y disponibilidad de la red.",
+                example: "Usar WPA2 en el Wi-Fi del Liceo evita que vecinos externos se cuelguen del internet de los alumnos."
+            },
+            {
+                title: "Backup",
+                type: "BACKUP",
+                layer: "Aplicación",
+                icon: 'hard-drive',
+                definition: "Copia de seguridad de los datos críticos para permitir su recuperación tras un incidente.",
+                example: "El profesor de conectividad guarda una copia de todos los Packet Tracer de los alumnos en un disco externo."
+            },
+            {
+                title: "VLAN",
+                type: "VLAN",
+                layer: "Capa 2 (Enlace)",
+                icon: 'layers',
+                definition: "Virtual LAN: Segmentación lógica de una red física para separar dominios de difusión por seguridad.",
+                example: "Permite que la red de 'Profesores' y la de 'Alumnos' viajen por el mismo cable pero sin mezclarse jamás."
+            },
+            {
+                title: "Cloud Computing",
+                type: "CLOUD",
+                layer: "Capa 7 (App)",
+                icon: 'cloud',
+                definition: "Entrega de servicios de computación bajo demanda a través de una red (Internet).",
+                example: "Usar Google Drive en el taller de Requínoa para no depender de un Pendrive que se pueda infectar."
+            },
+            {
+                title: "Autenticación",
+                type: "AUTH",
+                layer: "Capa 7 (App)",
+                icon: 'user-check',
+                definition: "Proceso de verificar que la identidad de un usuario coincide con las credenciales almacenadas.",
+                example: "Ingresar tu contraseña secreta para que el sistema del Liceo te permita entrar a tu perfil de usuario."
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderSimulation(type) {
+            const box = document.getElementById('simulation-box');
+            box.innerHTML = '';
+
+            const layouts = {
+                IP: `<div class="flex items-center gap-4 text-white mono">
+                        <div class="p-3 border border-blue-500 rounded-lg">PC: .1.15</div>
+                        <div class="h-1 w-20 bg-blue-900 relative overflow-hidden"><div class="absolute h-full w-4 bg-blue-400 animate-flow"></div></div>
+                        <div class="p-3 border border-red-500 rounded-lg italic">ID ÚNICO</div>
+                     </div>`,
+                NAT: `<div class="flex items-center justify-around w-full px-6">
+                        <div class="text-[9px] bg-blue-500/20 p-2 border border-blue-500">PRIVADA</div>
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center animate-pulse-custom shadow-[0_0_20px_yellow]">NAT</div>
+                        <div class="text-[9px] bg-green-500/20 p-2 border border-green-500">PÚBLICA</div>
+                      </div>`,
+                ROUTER: `<div class="relative w-full h-full flex items-center justify-center">
+                            <div class="absolute inset-0 bg-red-500/10 rounded-full animate-ping"></div>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="animate-bounce"><path d="M16 3l5 5-5 5M8 21l-5-5 5-5M12 2l0 20M2 12l20 0"></path></svg>
+                            <p class="absolute bottom-4 text-[8px] tracking-[4px] text-red-500">ENRUTANDO...</p>
+                         </div>`,
+                FIREWALL: `<div class="relative w-full h-full flex items-center">
+                            <div class="absolute left-0 w-2 h-2 bg-red-500 rounded-full animate-[flow_2s_infinite]"></div>
+                            <div class="absolute left-0 w-2 h-2 bg-green-500 rounded-full animate-[flow_3s_infinite] translate-y-4"></div>
+                            <div class="w-2 h-32 bg-red-600 shadow-[0_0_20px_red] mx-auto rounded-full relative z-10"></div>
+                            <div class="absolute right-0 text-[8px] text-green-500 font-bold">ACCESO OK</div>
+                           </div>`,
+                DHCP: `<div class="flex flex-col items-center gap-4 text-[10px]">
+                        <div class="flex gap-10">
+                            <div class="text-blue-400 border border-blue-500 px-2 py-1">PC NUEVO</div>
+                            <div class="text-purple-400 border border-purple-500 px-2 py-1">SERVER DHCP</div>
+                        </div>
+                        <div class="text-yellow-500 animate-pulse">ASIGNANDO IP DINÁMICA...</div>
+                        <div class="w-full h-1 bg-white/10 relative"><div class="absolute h-full w-full bg-green-500/40 animate-flow"></div></div>
+                      </div>`,
+                SWITCH: `<div class="grid grid-cols-4 gap-4">
+                            <div class="w-8 h-8 border border-white/20 flex items-center justify-center text-[8px]">P1</div>
+                            <div class="w-8 h-8 border border-green-500 bg-green-500/20 flex items-center justify-center text-[8px] animate-pulse">P2</div>
+                            <div class="w-8 h-8 border border-white/20 flex items-center justify-center text-[8px]">P3</div>
+                            <div class="w-8 h-8 border border-white/20 flex items-center justify-center text-[8px]">P4</div>
+                            <div class="col-span-4 h-4 bg-slate-800 rounded border border-slate-700"></div>
+                         </div>`,
+                MASK: `<div class="flex flex-col items-center gap-2 mono text-xs">
+                        <div class="text-blue-400 tracking-widest">11000000.10101000.00000001</div>
+                        <div class="text-red-500 font-black tracking-widest">11111111.11111111.11111111</div>
+                        <div class="w-full h-px bg-white/20 my-1"></div>
+                        <div class="text-green-400">FILTRO DE SUBRED ACTIVADO</div>
+                      </div>`,
+                GATEWAY: `<div class="relative w-full h-full flex items-center justify-center">
+                            <div class="w-24 h-24 border-2 border-dashed border-white/20 rounded-full animate-rotation absolute"></div>
+                            <div class="w-20 h-20 border-r-4 border-white/40 rounded-full"></div>
+                            <div class="absolute right-10 w-4 h-4 bg-red-500 rounded-full animate-flow"></div>
+                            <span class="absolute text-[8px] font-bold">SALIDA INTERNET</span>
+                          </div>`,
+                DNS: `<div class="flex flex-col items-center gap-2">
+                        <div class="text-xs italic text-blue-300">www.google.cl</div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" class="animate-bounce"><polyline points="7 13 12 18 17 13"></polyline></svg>
+                        <div class="text-xs font-bold text-green-400">142.251.32.35</div>
+                      </div>`,
+                SERVER: `<div class="relative space-y-2">
+                            <div class="w-20 h-6 bg-blue-600 rounded flex items-center justify-center text-[8px] animate-pulse">SOLICITUD</div>
+                            <div class="w-20 h-6 bg-slate-800 rounded border border-white/20 flex items-center justify-center text-[10px] font-black">SERVIDOR</div>
+                            <div class="w-20 h-6 bg-green-600 rounded flex items-center justify-center text-[8px] animate-pulse">RESPUESTA</div>
+                         </div>`,
+                CLIENT: `<div class="flex flex-col items-center gap-4">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="cyan" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>
+                            <div class="flex gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
+                                <span class="text-[8px] uppercase tracking-widest">Pidiendo Datos...</span>
+                            </div>
+                         </div>`,
+                TCP: `<div class="flex gap-2">
+                        <div class="w-8 h-8 bg-white/10 flex items-center justify-center text-[8px] border-b-2 border-red-500">PKT 1</div>
+                        <div class="w-8 h-8 bg-white/10 flex items-center justify-center text-[8px] border-b-2 border-red-500 animate-pulse">PKT 2</div>
+                        <div class="w-8 h-8 bg-white/10 flex items-center justify-center text-[8px] border-b-2 border-red-500">PKT 3</div>
+                        <div class="absolute bottom-10 text-[8px] text-stone-400 uppercase">Ordenando Secuencia</div>
+                      </div>`,
+                MAC: `<div class="border-2 border-white/10 p-4 rounded-xl glass">
+                        <div class="text-[10px] mono text-yellow-500 mb-2">HEX ID: AC-22-0B-34-FF-E1</div>
+                        <div class="w-full h-1 bg-yellow-950 rounded-full overflow-hidden">
+                            <div class="w-1/2 h-full bg-yellow-500 animate-flow"></div>
+                        </div>
+                        <p class="text-[8px] mt-2 text-center uppercase tracking-widest">ID Físico Permanente</p>
+                      </div>`,
+                LAN: `<div class="relative w-full h-full">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-32 h-20 border-2 border-white/10 rounded-3xl animate-rotation"></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-10 p-4">
+                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
+                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
+                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
+                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
+                        </div>
+                      </div>`,
+                STAR: `<div class="relative w-full h-full flex items-center justify-center">
+                        <div class="w-10 h-10 bg-red-600 rounded-full z-10 border-4 border-red-900 shadow-[0_0_20px_red]"></div>
+                        <div class="absolute w-full h-px bg-white/10 rotate-45"></div>
+                        <div class="absolute w-full h-px bg-white/10 -rotate-45"></div>
+                        <div class="absolute w-px h-full bg-white/10"></div>
+                        <div class="absolute top-4 left-4 w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <div class="absolute bottom-4 right-4 w-3 h-3 bg-blue-500 rounded-full"></div>
+                       </div>`,
+                SECURITY: `<div class="flex flex-col items-center">
+                            <div class="relative">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="yellow" stroke-width="2" class="animate-pulse-custom"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <div class="absolute top-1/2 left-full ml-4 text-[8px] font-mono text-green-500">AES-256</div>
+                            </div>
+                            <div class="mt-4 text-[8px] tracking-[4px]">ENCRIPTANDO...</div>
+                           </div>`,
+                BACKUP: `<div class="flex items-center gap-8">
+                            <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 rounded flex items-center justify-center text-[8px]">DATA</div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" class="animate-flow"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+                            <div class="w-12 h-12 bg-green-500/40 border-2 border-green-500 rounded-lg flex items-center justify-center shadow-[0_0_15px_green]">VAULT</div>
+                         </div>`,
+                VLAN: `<div class="space-y-4 w-full px-10">
+                        <div class="h-4 w-full bg-red-500/30 border border-red-500 rounded flex items-center px-2 text-[8px]">VLAN 10: ALUMNOS</div>
+                        <div class="h-4 w-full bg-blue-500/30 border border-blue-500 rounded flex items-center px-2 text-[8px]">VLAN 20: DOCENTES</div>
+                        <div class="text-[8px] text-center italic text-stone-500">Segmentación Lógica sobre 1 Cable</div>
+                      </div>`,
+                CLOUD: `<div class="relative">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5" class="animate-bounce-slow"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full animate-ping"></div>
+                            </div>
+                         </div>`,
+                AUTH: `<div class="flex flex-col items-center gap-3">
+                        <div class="flex gap-2">
+                            <div class="w-4 h-4 bg-white/10 border border-white/20"></div>
+                            <div class="w-4 h-4 bg-white/10 border border-white/20"></div>
+                            <div class="w-4 h-4 bg-white/10 border border-white/20"></div>
+                        </div>
+                        <div class="bg-green-600 text-[10px] font-black px-4 py-1 rounded-full animate-pulse">IDENTIDAD CONFIRMADA</div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="lightgreen" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>`
+            };
+
+            box.innerHTML = layouts[type] || '<div class="text-white/20">No Visual Data</div>';
+        }
+
+        const icons = {
+            globe: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
+            refresh: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>`,
+            wifi: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>`,
+            shield: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+            cpu: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line></svg>`,
+            layers: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>`,
+            server: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>`,
+            monitor: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>`,
+            cloud: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`,
+            settings: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09"></path></svg>`,
+            share: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle></svg>`,
+            terminal: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`,
+            key: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778z"></path></svg>`,
+            lock: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`,
+            'user-check': `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle></svg>`,
+            database: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`,
+            'hard-drive': `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"></line><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89"></path></svg>`,
+            help: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`
+        };
+
+        function updatePage() {
+            const concept = concepts[currentIndex];
+            document.getElementById('concept-title').innerText = concept.title;
+            document.getElementById('concept-definition').innerText = concept.definition;
+            document.getElementById('concept-example').innerText = concept.example;
+            document.getElementById('osi-layer').innerText = concept.layer || "N/A";
+            document.getElementById('page-indicator').innerText = `HOJA ${currentIndex + 1} DE 20`;
+
+            // Barra de progreso
+            const progress = ((currentIndex + 1) / 20) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Icono
+            document.getElementById('concept-icon').innerHTML = icons[concept.icon] || icons.globe;
+
+            // Simulación Única
+            renderSimulation(concept.type);
+
+            // Botones
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.3' : '1';
+
+            document.getElementById('nextBtn').disabled = currentIndex === concepts.length - 1;
+            document.getElementById('nextBtn').style.opacity = currentIndex === concepts.length - 1 ? '0.3' : '1';
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentIndex < concepts.length - 1) {
+                currentIndex++;
+                updatePage();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updatePage();
+            }
+        });
+
+        // Inicio
+        window.onload = updatePage;
+    </script>
+</body>
+
+</html>
