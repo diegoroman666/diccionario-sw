@@ -97,6 +97,28 @@
 
 <body class="bg-stone-200 min-h-screen flex flex-col items-center justify-center p-4">
 
+    <!-- Botón flotante: Ir al Mapa Conceptual -->
+    <a href="/redes-ip/"
+        class="fixed top-4 right-4 z-50 group flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-gradient-to-br from-indigo-600 via-indigo-500 to-cyan-500 text-white font-bold text-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border border-white/20"
+        title="Abrir mapa conceptual interactivo de Redes IP">
+        <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+        </span>
+        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
+            <circle cx="6" cy="6" r="2.5" stroke="currentColor" stroke-width="2" />
+            <circle cx="18" cy="6" r="2.5" stroke="currentColor" stroke-width="2" />
+            <circle cx="12" cy="18" r="2.5" stroke="currentColor" stroke-width="2" />
+            <path d="M8 7l3 9M16 7l-3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span>Ir al Mapa Conceptual</span>
+        <svg viewBox="0 0 24 24" fill="none"
+            class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1">
+            <path d="M5 12h14m-6-6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </a>
+
     <div
         class="max-w-6xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[680px] border-[12px] border-white relative">
 
