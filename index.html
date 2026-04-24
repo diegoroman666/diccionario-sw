@@ -4,100 +4,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuaderno de Configuración - Liceo de Requínoa</title>
+    <title>Diccionario de Redes · Liceo Polivalente de Requínoa</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
     <style>
+        * { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
         body {
-            font-family: 'Inter', sans-serif;
+            background: radial-gradient(ellipse at top, #1e293b 0%, #020617 60%);
+            min-height: 100vh;
         }
 
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Animaciones globales */
+        /* ================= Animaciones ================= */
         @keyframes flow {
-            0% {
-                left: 0%;
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                left: 100%;
-                opacity: 0;
-            }
+            0%   { transform: translateX(-120%); opacity: 0; }
+            25%  { opacity: 1; }
+            75%  { opacity: 1; }
+            100% { transform: translateX(420%); opacity: 0; }
         }
+        .animate-flow { animation: flow 2.4s infinite linear; }
 
-        .animate-flow {
-            animation: flow 2s infinite linear;
+        @keyframes pulse-ring {
+            0%   { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2);   opacity: 0; }
         }
+        .animate-pulse-ring { animation: pulse-ring 2s infinite; }
 
-        @keyframes scan {
-
-            0%,
-            100% {
-                top: 0%;
-            }
-
-            50% {
-                top: 100%;
-            }
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
+        .animate-slide-up { animation: slide-up 0.4s ease; }
 
-        .animate-scan {
-            animation: scan 3s infinite ease-in-out;
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
         }
+        .animate-rotate-slow { animation: rotate-slow 18s infinite linear; }
 
-        @keyframes pulse-custom {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.1);
-                opacity: 0.7;
-            }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0.3; }
         }
+        .animate-blink { animation: blink 1.2s infinite; }
 
-        .animate-pulse-custom {
-            animation: pulse-custom 2s infinite;
+        @keyframes dash {
+            to { stroke-dashoffset: -30; }
         }
+        .animate-dash { animation: dash 1.5s infinite linear; }
 
-        @keyframes rotation {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .animate-rotation {
-            animation: rotation 10s infinite linear;
-        }
-
-        /* Estilos de profundidad */
+        /* Glass cards */
         .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* Per-axis accents */
+        .axis-1 { --axis: #f59e0b; --axis-soft: rgba(245, 158, 11, 0.15); --axis-ring: rgba(245, 158, 11, 0.4); }
+        .axis-2 { --axis: #06b6d4; --axis-soft: rgba(6, 182, 212, 0.15);   --axis-ring: rgba(6, 182, 212, 0.4); }
+        .axis-3 { --axis: #10b981; --axis-soft: rgba(16, 185, 129, 0.15);  --axis-ring: rgba(16, 185, 129, 0.4); }
+        .axis-4 { --axis: #f43f5e; --axis-soft: rgba(244, 63, 94, 0.15);   --axis-ring: rgba(244, 63, 94, 0.4); }
+
+        .axis-color { color: var(--axis); }
+        .axis-bg { background: var(--axis-soft); }
+        .axis-border { border-color: var(--axis); }
+        .axis-glow { box-shadow: 0 0 30px var(--axis-ring); }
+
+        /* Simulación scene */
+        .sim-scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sim-grid {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Chip */
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* Scrollbar dark */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
     </style>
 </head>
 
-<body class="bg-stone-200 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="text-slate-100">
 
-    <!-- Botón flotante: Ir al Mapa Conceptual -->
+    <!-- Botón flotante: Mapa Conceptual -->
     <a href="/redes-ip/"
         class="fixed top-4 right-4 z-50 group flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-gradient-to-br from-indigo-600 via-indigo-500 to-cyan-500 text-white font-bold text-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border border-white/20"
         title="Abrir mapa conceptual interactivo de Redes IP">
@@ -111,503 +131,1202 @@
             <circle cx="12" cy="18" r="2.5" stroke="currentColor" stroke-width="2" />
             <path d="M8 7l3 9M16 7l-3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
         </svg>
-        <span>Ir al Mapa Conceptual</span>
-        <svg viewBox="0 0 24 24" fill="none"
-            class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1">
-            <path d="M5 12h14m-6-6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-        </svg>
+        <span>Mapa Conceptual</span>
     </a>
 
-    <div
-        class="max-w-6xl w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[680px] border-[12px] border-white relative">
+    <div class="min-h-screen flex flex-col items-center p-4 md:p-8">
 
-        <!-- Espiral del cuaderno -->
-        <div
-            class="hidden md:flex flex-col justify-around absolute left-[49.2%] top-0 bottom-0 w-4 z-20 py-8 pointer-events-none">
-            <script>
-                for (let i = 0; i < 16; i++) {
-                    document.write('<div class="w-full h-4 bg-gradient-to-r from-stone-400 to-stone-500 rounded-full border-b border-stone-600 shadow-md transform rotate-12 mb-1"></div>');
-                }
-            </script>
+        <!-- ====== ENCABEZADO ====== -->
+        <header class="w-full max-w-6xl text-center mb-6 pt-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[10px] uppercase tracking-[0.25em] text-slate-300 mb-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-blink"></span>
+                Liceo Polivalente de Requínoa · 3° Medio TP
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-2">
+                Diccionario de <span class="bg-gradient-to-r from-amber-400 via-cyan-400 to-rose-400 bg-clip-text text-transparent">Redes</span>
+            </h1>
+            <p class="text-sm text-slate-400 max-w-xl mx-auto">
+                20 conceptos organizados en 4 ejes temáticos, progresando desde la infraestructura física hasta la seguridad y servicios en la nube.
+            </p>
+        </header>
+
+        <!-- ====== SELECTOR DE EJES ====== -->
+        <nav class="w-full max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+            <button data-axis="1"
+                class="axis-tab axis-1 glass rounded-2xl p-3 text-left hover:bg-white/10 transition-all border-2 border-transparent">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black" style="background: var(--axis-soft); color: var(--axis)">1</span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Eje 1</span>
+                </div>
+                <div class="font-bold text-sm text-white">Fundamentos Físicos</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Capa 1-2 · Hardware</div>
+            </button>
+
+            <button data-axis="2"
+                class="axis-tab axis-2 glass rounded-2xl p-3 text-left hover:bg-white/10 transition-all border-2 border-transparent">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black" style="background: var(--axis-soft); color: var(--axis)">2</span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Eje 2</span>
+                </div>
+                <div class="font-bold text-sm text-white">Direccionamiento</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Capa 3 · Red lógica</div>
+            </button>
+
+            <button data-axis="3"
+                class="axis-tab axis-3 glass rounded-2xl p-3 text-left hover:bg-white/10 transition-all border-2 border-transparent">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black" style="background: var(--axis-soft); color: var(--axis)">3</span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Eje 3</span>
+                </div>
+                <div class="font-bold text-sm text-white">Transporte y Servicios</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Capa 4-7 · Aplicaciones</div>
+            </button>
+
+            <button data-axis="4"
+                class="axis-tab axis-4 glass rounded-2xl p-3 text-left hover:bg-white/10 transition-all border-2 border-transparent">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black" style="background: var(--axis-soft); color: var(--axis)">4</span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Eje 4</span>
+                </div>
+                <div class="font-bold text-sm text-white">Seguridad y Operación</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Transversal · Protección</div>
+            </button>
+        </nav>
+
+        <!-- ====== TIMELINE 20 CONCEPTOS ====== -->
+        <div id="timeline" class="w-full max-w-6xl glass rounded-2xl p-3 mb-4 flex items-center gap-1 overflow-x-auto">
+            <!-- Se rellena por JS -->
         </div>
 
-        <!-- LADO IZQUIERDO: SIMULACIONES ÚNICAS -->
-        <div
-            class="w-full md:w-1/2 bg-slate-950 p-8 md:p-12 flex flex-col justify-between border-r border-stone-200 text-white">
-            <div>
-                <div class="flex items-center gap-4 mb-10">
-                    <div id="concept-icon"
-                        class="p-4 bg-white/10 rounded-2xl border border-white/20 text-red-500 shadow-xl">
-                        <!-- Icono dinámico -->
+        <!-- ====== TARJETA PRINCIPAL ====== -->
+        <main id="mainCard"
+            class="w-full max-w-6xl rounded-3xl overflow-hidden glass-strong border-2 border-transparent transition-all duration-500">
+
+            <div class="grid md:grid-cols-2 min-h-[560px]">
+
+                <!-- ==== PANEL IZQUIERDO · SIMULACIÓN ==== -->
+                <section class="p-6 md:p-8 flex flex-col border-b md:border-b-0 md:border-r border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div id="concept-icon"
+                                class="p-3 rounded-2xl glass-strong flex items-center justify-center w-14 h-14"
+                                style="color: var(--axis)">
+                                <!-- Icono dinámico -->
+                            </div>
+                            <div>
+                                <div id="axis-label" class="text-[10px] uppercase tracking-widest font-bold axis-color">Eje 1 · Fundamentos</div>
+                                <div id="concept-position" class="text-[10px] text-slate-400 mono">1 de 5 en el eje</div>
+                            </div>
+                        </div>
+                        <span id="osi-badge" class="chip axis-bg axis-color mono">Capa 3</span>
                     </div>
-                    <div>
-                        <h3 class="text-xs font-black uppercase tracking-tighter text-stone-400">Laboratorio Requínoa
-                        </h3>
-                        <p class="text-[10px] font-bold text-red-500">Módulo: Configuración</p>
+
+                    <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-3 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full axis-color animate-blink" style="background: var(--axis)"></span>
+                        Simulación Técnica
+                    </h4>
+
+                    <div id="simulation-box"
+                        class="flex-1 glass rounded-3xl sim-grid overflow-hidden relative min-h-[320px] p-6">
+                        <!-- Contenido dinámico -->
                     </div>
-                </div>
 
-                <h4 class="text-sm font-bold text-stone-300 mb-6 flex items-center gap-2 uppercase tracking-widest">
-                    <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
-                    Simulación Técnica
-                </h4>
-
-                <div id="simulation-box"
-                    class="bg-black/40 rounded-[2.5rem] h-64 flex items-center justify-center relative overflow-hidden border border-white/10 shadow-2xl p-6">
-                    <!-- Contenido de simulación dinámico -->
-                </div>
-
-                <div class="mt-8 grid grid-cols-2 gap-4">
-                    <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-                        <p class="text-[9px] text-stone-500 uppercase font-black mb-1">Capa OSI</p>
-                        <p id="osi-layer" class="text-xs font-bold text-red-400 font-mono">Capa 3</p>
-                    </div>
-                    <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-                        <p class="text-[9px] text-stone-500 uppercase font-black mb-1">Tráfico</p>
-                        <p class="text-xs font-bold text-green-400 font-mono">Encapsulado</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- LADO DERECHO: CONTENIDO -->
-        <div class="w-full md:w-1/2 bg-white p-8 md:p-12 flex flex-col">
-            <div class="flex justify-between items-center mb-8">
-                <span id="page-indicator"
-                    class="bg-red-500 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-red-200">HOJA
-                    1 DE 20</span>
-                <div class="flex gap-1">
-                    <div class="w-2 h-2 bg-stone-200 rounded-full"></div>
-                    <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                </div>
-            </div>
-
-            <div class="mb-auto">
-                <h2 id="concept-title"
-                    class="text-4xl font-black text-stone-900 mb-6 leading-tight uppercase tracking-tight">
-                    Cargando...
-                </h2>
-
-                <div class="space-y-8">
-                    <section>
-                        <h4
-                            class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-3 flex items-center gap-1">
-                            Definición Formal
-                        </h4>
-                        <p id="concept-definition"
-                            class="text-stone-700 text-lg leading-relaxed font-serif italic border-l-4 border-red-100 pl-6">
-                            ...
-                        </p>
-                    </section>
-
-                    <section class="bg-stone-50 p-6 rounded-3xl border border-stone-100">
-                        <h4 class="text-[10px] font-black text-stone-400 uppercase tracking-widest mb-3">Escenario:
-                            Liceo de Requínoa</h4>
-                        <p id="concept-example" class="text-stone-600 leading-snug font-medium text-sm">
-                            ...
-                        </p>
-                    </section>
-                </div>
-            </div>
-
-            <!-- CONTROLES -->
-            <div class="mt-12 flex items-center justify-between gap-6">
-                <button id="prevBtn"
-                    class="w-14 h-14 rounded-2xl bg-white border border-stone-100 text-stone-600 hover:bg-stone-50 flex items-center justify-center transition-all shadow-lg active:scale-90">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-
-                <div class="flex-1">
-                    <div class="h-3 w-full bg-stone-100 rounded-full overflow-hidden p-0.5">
-                        <div id="progress-bar" class="h-full bg-red-500 rounded-full transition-all duration-500 w-0">
+                    <div class="mt-4 grid grid-cols-3 gap-2">
+                        <div class="glass rounded-xl p-2.5">
+                            <p class="text-[9px] text-slate-500 uppercase font-black">Capa OSI</p>
+                            <p id="osi-layer" class="text-xs font-bold mono" style="color: var(--axis)">Capa 3</p>
+                        </div>
+                        <div class="glass rounded-xl p-2.5">
+                            <p class="text-[9px] text-slate-500 uppercase font-black">Rol</p>
+                            <p id="concept-role" class="text-xs font-bold mono text-slate-200">Identifica</p>
+                        </div>
+                        <div class="glass rounded-xl p-2.5">
+                            <p class="text-[9px] text-slate-500 uppercase font-black">Dominio</p>
+                            <p id="concept-domain" class="text-xs font-bold mono text-slate-200">Red</p>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <button id="nextBtn"
-                    class="w-14 h-14 rounded-2xl bg-red-500 text-white hover:bg-red-600 flex items-center justify-center transition-all shadow-lg shadow-red-200 active:scale-90">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
+                <!-- ==== PANEL DERECHO · CONTENIDO ==== -->
+                <section class="p-6 md:p-8 flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <span id="page-indicator"
+                            class="chip axis-bg axis-color mono">
+                            Concepto 1 / 20
+                        </span>
+                        <div class="flex items-center gap-1 text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+                            <span id="axis-indicator">Eje 1</span>
+                            <span class="opacity-40">·</span>
+                            <span id="axis-progress">1/5</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 animate-slide-up" id="contentAnim">
+                        <h2 id="concept-title"
+                            class="text-3xl md:text-4xl font-black leading-tight mb-1 text-white">
+                            Cargando...
+                        </h2>
+                        <p id="concept-subtitle" class="text-sm text-slate-400 mb-6 mono">...</p>
+
+                        <div class="space-y-4">
+                            <div class="glass rounded-2xl p-4 border-l-4 axis-border" style="border-left-color: var(--axis)">
+                                <h4 class="text-[9px] font-black uppercase tracking-[0.25em] mb-2 axis-color">
+                                    ◆ Definición
+                                </h4>
+                                <p id="concept-definition" class="text-sm text-slate-200 leading-relaxed">...</p>
+                            </div>
+
+                            <div class="glass rounded-2xl p-4">
+                                <h4 class="text-[9px] font-black uppercase tracking-[0.25em] mb-2 text-slate-400">
+                                    ▣ En el Liceo de Requínoa
+                                </h4>
+                                <p id="concept-example" class="text-sm text-slate-300 leading-relaxed italic">...</p>
+                            </div>
+
+                            <div class="glass rounded-2xl p-4">
+                                <h4 class="text-[9px] font-black uppercase tracking-[0.25em] mb-2 text-slate-400">
+                                    ? ¿Por qué importa?
+                                </h4>
+                                <p id="concept-why" class="text-sm text-slate-300 leading-relaxed">...</p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-[9px] font-black uppercase tracking-[0.25em] mb-2 text-slate-500">
+                                    ⇄ Se conecta con
+                                </h4>
+                                <div id="concept-related" class="flex flex-wrap gap-1.5"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTROLES -->
+                    <div class="mt-6 pt-4 border-t border-white/5">
+                        <div class="flex items-center gap-3 mb-3">
+                            <button id="prevBtn"
+                                class="w-11 h-11 rounded-xl glass-strong flex items-center justify-center hover:bg-white/10 transition active:scale-90">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </button>
+
+                            <div class="flex-1">
+                                <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div id="progress-bar" class="h-full rounded-full transition-all duration-500 w-0"
+                                        style="background: linear-gradient(90deg, #f59e0b, #06b6d4, #10b981, #f43f5e);">
+                                    </div>
+                                </div>
+                                <div class="flex justify-between mt-1 text-[9px] text-slate-500 uppercase tracking-widest font-bold">
+                                    <span>Inicio</span>
+                                    <span>Fin</span>
+                                </div>
+                            </div>
+
+                            <button id="nextBtn"
+                                class="w-11 h-11 rounded-xl flex items-center justify-center transition active:scale-90 text-white"
+                                style="background: var(--axis); box-shadow: 0 0 20px var(--axis-ring);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-500 text-center">
+                            Usa ← → del teclado · <span class="mono">[1-4]</span> salta al inicio del eje
+                        </p>
+                    </div>
+                </section>
             </div>
-        </div>
+        </main>
+
+        <footer class="mt-6 text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] text-center">
+            Guía Interactiva · Conectividad &amp; Redes · Módulo Configuración
+        </footer>
     </div>
 
-    <footer class="mt-8 text-stone-400 text-[10px] font-bold uppercase tracking-[0.3em]">
-        Guía Interactiva - Conectividad & Redes
-    </footer>
-
     <script>
+        /* =========================================================
+           DATA — 20 conceptos en 4 ejes temáticos
+           ========================================================= */
+        const AXES = [
+            { id: 1, name: "Fundamentos Físicos",    short: "Fundamentos",     layer: "Capa 1-2",    color: "#f59e0b" },
+            { id: 2, name: "Direccionamiento y Red", short: "Direccionamiento", layer: "Capa 3",      color: "#06b6d4" },
+            { id: 3, name: "Transporte y Servicios", short: "Servicios",        layer: "Capa 4-7",    color: "#10b981" },
+            { id: 4, name: "Seguridad y Operación",  short: "Seguridad",        layer: "Transversal", color: "#f43f5e" }
+        ];
+
         const concepts = [
+            /* ============ EJE 1 · FUNDAMENTOS FÍSICOS ============ */
             {
-                title: "Dirección IP",
-                type: "IP",
-                layer: "Capa 3 (Red)",
-                icon: 'globe',
-                definition: "Etiqueta numérica que identifica de manera lógica y única a un dispositivo en una red que utiliza el protocolo IP.",
-                example: "En el Taller de Requínoa, cada PC de la fila A tiene una IP correlativa (192.168.1.10, .11, .12) para que el profesor los identifique."
+                axis: 1, title: "Red LAN", subtitle: "Local Area Network",
+                type: "LAN", icon: "lan",
+                layer: "Capa 1-2", role: "Escenario", domain: "Físico",
+                definition: "Una red LAN conecta computadoras dentro de un espacio geográfico reducido —una sala, un edificio— usando cables o Wi-Fi, compartiendo recursos a alta velocidad.",
+                example: "Toda la infraestructura de cables, canaletas, switches y Wi-Fi que recorre las salas de 3° medio TP forma la red LAN del Liceo.",
+                why: "Es el **punto de partida** de todo. Antes de hablar de IPs o seguridad, necesitas entender el espacio físico donde viven los equipos.",
+                related: ["Topología Estrella", "Switch", "Dirección MAC"]
             },
             {
-                title: "NAT",
-                type: "NAT",
-                layer: "Capa 3/4",
-                icon: 'refresh',
-                definition: "Network Address Translation: Proceso de modificar las direcciones IP de los paquetes para que una red privada salga a Internet.",
-                example: "Tu celular y el PC del Liceo comparten la misma IP pública del colegio para navegar en YouTube, gracias al NAT del Router."
+                axis: 1, title: "Topología Estrella", subtitle: "Diseño físico dominante",
+                type: "STAR", icon: "star",
+                layer: "Física", role: "Diseño", domain: "Cableado",
+                definition: "Arquitectura donde cada equipo se conecta individualmente a un nodo central (switch). Si un cable se rompe, solo ese equipo queda aislado; el resto continúa.",
+                example: "El taller de Requínoa usa topología estrella: los 20 PCs llegan con un cable cada uno al switch del rack central.",
+                why: "Define cómo se **propaga el fallo**: un diseño robusto evita que un problema puntual caiga a toda la sala.",
+                related: ["Red LAN", "Switch", "Cableado"]
             },
             {
-                title: "Router",
-                type: "ROUTER",
-                layer: "Capa 3 (Red)",
-                icon: 'wifi',
-                definition: "Dispositivo de interconexión de redes que decide el camino más óptimo para los paquetes basándose en su tabla de enrutamiento.",
-                example: "Es el equipo principal del rack del Liceo que conecta nuestra red interna con el enlace de fibra óptica exterior."
+                axis: 1, title: "Dirección MAC", subtitle: "Identificador físico de fábrica",
+                type: "MAC", icon: "key",
+                layer: "Capa 2", role: "Identidad", domain: "Hardware",
+                definition: "Número de 48 bits grabado en la tarjeta de red durante su fabricación. Es el 'número de serie' del hardware y no cambia.",
+                example: "Si cambias de PC en el laboratorio, el administrador lo detecta porque la MAC de la tarjeta de red es distinta a la asignada a tu usuario.",
+                why: "Es la identidad más **básica y permanente** del equipo. Antes de tener IP, todo dispositivo ya tiene MAC.",
+                related: ["Switch", "VLAN", "Red LAN"]
             },
             {
-                title: "Firewall",
-                type: "FIREWALL",
-                layer: "Capa 3 a 7",
-                icon: 'shield',
-                definition: "Sistema de defensa perimetral que filtra el tráfico entrante y saliente según políticas de seguridad.",
-                example: "Si intentas entrar a un sitio de juegos bloqueado, el Firewall del Liceo detiene el paquete y registra la incidencia."
+                axis: 1, title: "Switch", subtitle: "El corazón de la LAN",
+                type: "SWITCH", icon: "switch",
+                layer: "Capa 2", role: "Conmutar", domain: "Hardware",
+                definition: "Dispositivo que conecta múltiples equipos en una LAN. Aprende las MACs conectadas a cada puerto y envía tramas solo al puerto del destinatario, no a todos.",
+                example: "El switch del rack del taller tiene 24 puertos: cada PC del laboratorio ocupa uno, y el switch decide por dónde enviar cada paquete.",
+                why: "Hace que la red sea **eficiente**: sin switch, cada mensaje llegaría a todos los equipos y la red colapsaría.",
+                related: ["Dirección MAC", "Red LAN", "VLAN"]
             },
             {
-                title: "DHCP",
-                type: "DHCP",
-                layer: "Capa 7 (App)",
-                icon: 'cpu',
-                definition: "Dynamic Host Configuration Protocol: Protocolo que automatiza la entrega de parámetros de red a los clientes.",
-                example: "Al entrar a la biblioteca y conectar el Wi-Fi, no configuras nada; el servidor DHCP te asigna todo al instante."
+                axis: 1, title: "VLAN", subtitle: "LAN virtual",
+                type: "VLAN", icon: "layers",
+                layer: "Capa 2", role: "Segmentar", domain: "Lógico",
+                definition: "Virtual LAN: separación **lógica** de una red física en múltiples redes independientes que no se ven entre sí, aunque compartan cables y switches.",
+                example: "En el Liceo, 'VLAN 10 = Alumnos' y 'VLAN 20 = Profesores' viajan por los mismos cables pero ningún alumno puede ver la red de profesores.",
+                why: "Cierra el eje físico introduciendo **abstracción**: la red deja de ser solo cables y pasa a tener divisiones lógicas configurables.",
+                related: ["Switch", "Red LAN", "Seguridad"]
+            },
+
+            /* ============ EJE 2 · DIRECCIONAMIENTO Y RED ============ */
+            {
+                axis: 2, title: "Dirección IP", subtitle: "Identificador lógico del equipo",
+                type: "IP", icon: "globe",
+                layer: "Capa 3", role: "Identifica", domain: "Red",
+                definition: "Etiqueta numérica (ej. 192.168.1.10) que identifica lógicamente a un dispositivo en una red IP. Cada equipo en la misma red debe tener una IP única.",
+                example: "En la fila A del taller: PC-01 → 192.168.1.10, PC-02 → .11, PC-03 → .12. Así el profesor sabe exactamente a qué equipo conectar remotamente.",
+                why: "Es la **base** del direccionamiento: si la MAC identifica el hardware, la IP identifica al equipo dentro de la red lógica.",
+                related: ["Máscara de Subred", "Gateway", "DHCP"]
             },
             {
-                title: "Switch",
-                type: "SWITCH",
-                layer: "Capa 2 (Enlace)",
-                icon: 'layers',
-                definition: "Dispositivo que conecta equipos en una LAN enviando tramas solo al puerto donde se encuentra el destino (usando MAC).",
-                example: "El Switch del taller une los 20 PCs de los alumnos para que puedan compartir archivos a máxima velocidad."
+                axis: 2, title: "Máscara de Subred", subtitle: "Separa red de host",
+                type: "MASK", icon: "settings",
+                layer: "Capa 3", role: "Divide", domain: "Red",
+                definition: "Número con el mismo formato que una IP. Sus bits en 1 marcan la parte de **red**; los bits en 0, la parte de **host**. Define cuántos equipos caben en la red.",
+                example: "IP 192.168.1.25 con máscara 255.255.255.0 dice: 'los primeros 3 octetos son la red del taller, el último es el equipo'.",
+                why: "Sin máscara, un equipo **no sabe** con quién puede hablar directamente ni cuándo debe usar el gateway.",
+                related: ["Dirección IP", "Gateway", "Router"]
             },
             {
-                title: "Máscara de Subred",
-                type: "MASK",
-                layer: "Capa 3 (Red)",
-                icon: 'settings',
-                definition: "Prefijo de red que indica qué parte de la dirección IP pertenece a la red y qué parte al host.",
-                example: "La máscara 255.255.255.0 le dice a los equipos de administración que no pueden ver a los equipos de los alumnos."
+                axis: 2, title: "Gateway", subtitle: "Puerta de enlace",
+                type: "GATEWAY", icon: "door",
+                layer: "Capa 3", role: "Saliedar", domain: "Red",
+                definition: "Dirección IP del router al que un equipo envía todo el tráfico destinado a redes externas. Es la 'salida' hacia Internet o hacia otras subredes.",
+                example: "En los PCs del Liceo el gateway suele ser 192.168.1.1 — sin esa configuración, podrías chatear con el de al lado pero jamás salir a Google.",
+                why: "Es el **borde** entre tu red local y el resto del mundo. Configurar mal el gateway = equipo aislado.",
+                related: ["Router", "Dirección IP", "Máscara de Subred"]
             },
             {
-                title: "Gateway",
-                type: "GATEWAY",
-                layer: "Capa 3 (Red)",
-                icon: 'share',
-                definition: "Puerta de enlace predeterminada que actúa como el nodo de salida hacia redes externas.",
-                example: "Es la IP 192.168.1.1 en los PCs del Liceo; sin ella, podrías hablar con tu compañero de al lado, pero no salir a Google."
+                axis: 2, title: "Router", subtitle: "Decisor de rutas",
+                type: "ROUTER", icon: "wifi",
+                layer: "Capa 3", role: "Enrutar", domain: "Red",
+                definition: "Dispositivo que interconecta redes distintas. Lee la IP de destino de cada paquete y consulta su tabla de rutas para decidir por cuál interfaz enviarlo.",
+                example: "El router del rack del Liceo conecta la LAN interna con el enlace de fibra del ISP: cada paquete es evaluado antes de salir a Internet.",
+                why: "Sin router, las redes quedan **aisladas**. Es quien decide: 'este paquete va a Internet, este otro a la sala de profesores'.",
+                related: ["Gateway", "NAT", "Firewall"]
             },
             {
-                title: "DNS",
-                type: "DNS",
-                layer: "Capa 7 (App)",
-                icon: 'help',
-                definition: "Domain Name System: Sistema que traduce nombres de dominio (texto) a direcciones IP (números).",
-                example: "Escribes 'aulavirtual.cl' y el DNS del Liceo te lleva al servidor correcto sin que sepas su dirección IP real."
+                axis: 2, title: "NAT", subtitle: "Network Address Translation",
+                type: "NAT", icon: "refresh",
+                layer: "Capa 3-4", role: "Traduce", domain: "Red",
+                definition: "Técnica que traduce las IPs **privadas** de una LAN a una única IP **pública** para salir a Internet, permitiendo que muchos equipos compartan una sola dirección externa.",
+                example: "Tus 30 compañeros, más profesores, salen a YouTube todos como '200.14.28.47' (la IP pública del Liceo), gracias al NAT del router.",
+                why: "Cierra el eje de direccionamiento: la red local se vuelve **invisible** al exterior, lo que además añade una capa natural de seguridad.",
+                related: ["Router", "Dirección IP", "Firewall"]
+            },
+
+            /* ============ EJE 3 · TRANSPORTE Y SERVICIOS ============ */
+            {
+                axis: 3, title: "Protocolo TCP", subtitle: "Transporte confiable",
+                type: "TCP", icon: "terminal",
+                layer: "Capa 4", role: "Ordenar", domain: "Transporte",
+                definition: "Protocolo orientado a conexión que garantiza que los datos lleguen **completos y en orden** usando numeración de segmentos y acuses de recibo (ACK).",
+                example: "Al descargar la guía PDF del portal del Liceo, TCP asegura que no falte ni una sola letra del documento, aunque la red se entrecorte.",
+                why: "Es el **primer servicio confiable** sobre IP. La capa 3 entrega paquetes sueltos; TCP garantiza que lleguen bien.",
+                related: ["Dirección IP", "Cliente", "Servidor"]
             },
             {
-                title: "Servidor",
-                type: "SERVER",
-                layer: "Capa 7 (App)",
-                icon: 'server',
-                definition: "Sistema informático que atiende peticiones de clientes y les devuelve una respuesta con datos o servicios.",
-                example: "El servidor central del Liceo de Requínoa entrega las carpetas personales de cada estudiante al iniciar sesión."
+                axis: 3, title: "DHCP", subtitle: "Configuración automática",
+                type: "DHCP", icon: "cpu",
+                layer: "Capa 7", role: "Asignar", domain: "Servicio",
+                definition: "Dynamic Host Configuration Protocol. Servidor que entrega automáticamente IP, máscara, gateway y DNS a cada equipo al conectarse a la red.",
+                example: "Al conectar tu celular al Wi-Fi del Liceo no configuras nada: el DHCP del router te asigna todo en menos de un segundo.",
+                why: "Sin DHCP, un administrador tendría que ir PC por PC configurando manualmente. **Escalabilidad** pura.",
+                related: ["Dirección IP", "Gateway", "DNS"]
             },
             {
-                title: "Cliente",
-                type: "CLIENT",
-                icon: 'monitor',
-                definition: "Dispositivo o software que inicia la comunicación solicitando un recurso a un servidor.",
-                example: "Tu navegador Chrome en el taller es el cliente cuando pide descargar la guía de configuración del portal."
+                axis: 3, title: "DNS", subtitle: "Guía telefónica de Internet",
+                type: "DNS", icon: "help",
+                layer: "Capa 7", role: "Traducir", domain: "Servicio",
+                definition: "Domain Name System. Traduce nombres de dominio legibles (google.cl) a direcciones IP numéricas (142.250.80.67) que los computadores sí entienden.",
+                example: "Escribes 'aulavirtual.cl' en el navegador: el DNS responde con la IP real del servidor, y recién ahí tu PC se conecta.",
+                why: "Es lo que hace Internet **usable por humanos**. Sin DNS, habría que memorizar números para cada web.",
+                related: ["Dirección IP", "Cliente", "Servidor"]
             },
             {
-                title: "Protocolo TCP",
-                type: "TCP",
-                layer: "Capa 4 (Transporte)",
-                icon: 'terminal',
-                definition: "Protocolo orientado a conexión que garantiza que los datos lleguen completos y en orden mediante acuses de recibo.",
-                example: "Cuando descargas un examen, el TCP asegura que no falte ninguna letra del documento original."
+                axis: 3, title: "Cliente", subtitle: "Quien pide",
+                type: "CLIENT", icon: "monitor",
+                layer: "Capa 7", role: "Solicitar", domain: "Aplicación",
+                definition: "Dispositivo o software que **inicia** una comunicación pidiendo un recurso (una página, un archivo, un servicio) a otro equipo.",
+                example: "El navegador Chrome en el PC del laboratorio es cliente cuando pide la guía de configuración al portal interno del Liceo.",
+                why: "Todo el modelo **cliente-servidor** empieza aquí. Sin cliente que pida, no hay comunicación que iniciar.",
+                related: ["Servidor", "Protocolo TCP", "DNS"]
             },
             {
-                title: "Dirección MAC",
-                type: "MAC",
-                layer: "Capa 2 (Enlace)",
-                icon: 'key',
-                definition: "Media Access Control: Identificador físico de 48 bits grabado de fábrica en la tarjeta de red.",
-                example: "Si cambias tu PC por el de otro compañero, el administrador del Liceo lo sabrá porque la dirección MAC es distinta."
+                axis: 3, title: "Servidor", subtitle: "Quien responde",
+                type: "SERVER", icon: "server",
+                layer: "Capa 7", role: "Responder", domain: "Aplicación",
+                definition: "Sistema informático que **atiende peticiones** de clientes y les devuelve una respuesta: datos, páginas web, archivos, servicios de cualquier tipo.",
+                example: "El servidor central del Liceo entrega las carpetas personales de cada estudiante cuando inician sesión en cualquier PC del edificio.",
+                why: "Cierra el eje de servicios: la red ya es funcional — equipos piden, servidores responden. **Modelo listo para operar**.",
+                related: ["Cliente", "Backup", "Cloud Computing"]
+            },
+
+            /* ============ EJE 4 · SEGURIDAD Y OPERACIÓN ============ */
+            {
+                axis: 4, title: "Firewall", subtitle: "Perímetro de seguridad",
+                type: "FIREWALL", icon: "shield",
+                layer: "Capa 3-7", role: "Filtrar", domain: "Seguridad",
+                definition: "Sistema de defensa que inspecciona el tráfico entrante y saliente según políticas, dejando pasar lo permitido y bloqueando lo prohibido.",
+                example: "Cuando un alumno intenta entrar a un sitio bloqueado, el firewall del Liceo detiene el paquete y registra el intento.",
+                why: "Primera línea de la seguridad: **filtra antes de que el tráfico llegue** a los equipos críticos.",
+                related: ["Router", "Seguridad", "Autenticación"]
             },
             {
-                title: "Red LAN",
-                type: "LAN",
-                layer: "Capa 1 y 2",
-                icon: 'database',
-                definition: "Local Area Network: Red que conecta computadoras dentro de una extensión geográfica pequeña.",
-                example: "Toda la infraestructura de cables y canaletas que ves en las salas del Liceo constituye nuestra red LAN."
+                axis: 4, title: "Autenticación", subtitle: "Verificar identidad",
+                type: "AUTH", icon: "user-check",
+                layer: "Capa 7", role: "Verificar", domain: "Seguridad",
+                definition: "Proceso que confirma que el usuario es quien dice ser, comparando las credenciales entregadas (usuario + contraseña, huella, token) con las almacenadas.",
+                example: "Al iniciar sesión en el PC del taller, el sistema verifica tu contraseña contra el servidor de usuarios del Liceo antes de abrir tu escritorio.",
+                why: "No basta con proteger la red: hay que saber **quién entra**. Autenticación es el control de acceso fino.",
+                related: ["Firewall", "Seguridad", "Servidor"]
             },
             {
-                title: "Topología Estrella",
-                type: "STAR",
-                layer: "Física",
-                icon: 'layers',
-                definition: "Diseño de red donde todos los nodos están conectados individualmente a un nodo central (Hub o Switch).",
-                example: "Es el diseño del taller de Requínoa: si un cable de un PC se corta, los otros 19 siguen funcionando perfectamente."
+                axis: 4, title: "Seguridad", subtitle: "Protección integral",
+                type: "SECURITY", icon: "lock",
+                layer: "Transversal", role: "Proteger", domain: "Seguridad",
+                definition: "Conjunto de protocolos, cifrado y prácticas que protegen la confidencialidad, integridad y disponibilidad de la información en la red.",
+                example: "El Wi-Fi del Liceo usa WPA2 con AES-256: aunque alguien capture el tráfico, no puede leer ni una contraseña en claro.",
+                why: "Es el **marco general**: firewall y autenticación son mecanismos, la seguridad es la estrategia global.",
+                related: ["Firewall", "Autenticación", "Backup"]
             },
             {
-                title: "Seguridad",
-                type: "SECURITY",
-                layer: "Todas las Capas",
-                icon: 'lock',
-                definition: "Conjunto de protocolos y prácticas para proteger la confidencialidad y disponibilidad de la red.",
-                example: "Usar WPA2 en el Wi-Fi del Liceo evita que vecinos externos se cuelguen del internet de los alumnos."
+                axis: 4, title: "Backup", subtitle: "Plan de recuperación",
+                type: "BACKUP", icon: "hard-drive",
+                layer: "Aplicación", role: "Copiar", domain: "Operación",
+                definition: "Copia de seguridad de los datos críticos en un lugar distinto al original, para poder restaurarlos tras un incidente (borrado, falla, ataque).",
+                example: "El profesor del taller guarda una copia de todos los archivos Packet Tracer de los alumnos en un disco externo, semanalmente.",
+                why: "No alcanza con proteger: hay que **poder recuperar**. Un backup es la red de seguridad final cuando todo lo demás falla.",
+                related: ["Seguridad", "Servidor", "Cloud Computing"]
             },
             {
-                title: "Backup",
-                type: "BACKUP",
-                layer: "Aplicación",
-                icon: 'hard-drive',
-                definition: "Copia de seguridad de los datos críticos para permitir su recuperación tras un incidente.",
-                example: "El profesor de conectividad guarda una copia de todos los Packet Tracer de los alumnos en un disco externo."
-            },
-            {
-                title: "VLAN",
-                type: "VLAN",
-                layer: "Capa 2 (Enlace)",
-                icon: 'layers',
-                definition: "Virtual LAN: Segmentación lógica de una red física para separar dominios de difusión por seguridad.",
-                example: "Permite que la red de 'Profesores' y la de 'Alumnos' viajen por el mismo cable pero sin mezclarse jamás."
-            },
-            {
-                title: "Cloud Computing",
-                type: "CLOUD",
-                layer: "Capa 7 (App)",
-                icon: 'cloud',
-                definition: "Entrega de servicios de computación bajo demanda a través de una red (Internet).",
-                example: "Usar Google Drive en el taller de Requínoa para no depender de un Pendrive que se pueda infectar."
-            },
-            {
-                title: "Autenticación",
-                type: "AUTH",
-                layer: "Capa 7 (App)",
-                icon: 'user-check',
-                definition: "Proceso de verificar que la identidad de un usuario coincide con las credenciales almacenadas.",
-                example: "Ingresar tu contraseña secreta para que el sistema del Liceo te permita entrar a tu perfil de usuario."
+                axis: 4, title: "Cloud Computing", subtitle: "Cómputo en la nube",
+                type: "CLOUD", icon: "cloud",
+                layer: "Capa 7", role: "Externalizar", domain: "Operación",
+                definition: "Entrega de recursos de cómputo (almacenamiento, procesamiento, aplicaciones) a través de Internet, bajo demanda y desde cualquier lugar.",
+                example: "Los alumnos guardan tareas en Google Drive del Liceo: no dependen de un pendrive que se pierda o infecte, ni del PC específico del taller.",
+                why: "Cierra el recorrido: reúne **todos los conceptos anteriores** (IP, DNS, seguridad, servidor, backup) y los ofrece como servicio.",
+                related: ["Servidor", "Backup", "Seguridad"]
             }
         ];
 
-        let currentIndex = 0;
-
-        function renderSimulation(type) {
-            const box = document.getElementById('simulation-box');
-            box.innerHTML = '';
-
-            const layouts = {
-                IP: `<div class="flex items-center gap-4 text-white mono">
-                        <div class="p-3 border border-blue-500 rounded-lg">PC: .1.15</div>
-                        <div class="h-1 w-20 bg-blue-900 relative overflow-hidden"><div class="absolute h-full w-4 bg-blue-400 animate-flow"></div></div>
-                        <div class="p-3 border border-red-500 rounded-lg italic">ID ÚNICO</div>
-                     </div>`,
-                NAT: `<div class="flex items-center justify-around w-full px-6">
-                        <div class="text-[9px] bg-blue-500/20 p-2 border border-blue-500">PRIVADA</div>
-                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center animate-pulse-custom shadow-[0_0_20px_yellow]">NAT</div>
-                        <div class="text-[9px] bg-green-500/20 p-2 border border-green-500">PÚBLICA</div>
-                      </div>`,
-                ROUTER: `<div class="relative w-full h-full flex items-center justify-center">
-                            <div class="absolute inset-0 bg-red-500/10 rounded-full animate-ping"></div>
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="animate-bounce"><path d="M16 3l5 5-5 5M8 21l-5-5 5-5M12 2l0 20M2 12l20 0"></path></svg>
-                            <p class="absolute bottom-4 text-[8px] tracking-[4px] text-red-500">ENRUTANDO...</p>
-                         </div>`,
-                FIREWALL: `<div class="relative w-full h-full flex items-center">
-                            <div class="absolute left-0 w-2 h-2 bg-red-500 rounded-full animate-[flow_2s_infinite]"></div>
-                            <div class="absolute left-0 w-2 h-2 bg-green-500 rounded-full animate-[flow_3s_infinite] translate-y-4"></div>
-                            <div class="w-2 h-32 bg-red-600 shadow-[0_0_20px_red] mx-auto rounded-full relative z-10"></div>
-                            <div class="absolute right-0 text-[8px] text-green-500 font-bold">ACCESO OK</div>
-                           </div>`,
-                DHCP: `<div class="flex flex-col items-center gap-4 text-[10px]">
-                        <div class="flex gap-10">
-                            <div class="text-blue-400 border border-blue-500 px-2 py-1">PC NUEVO</div>
-                            <div class="text-purple-400 border border-purple-500 px-2 py-1">SERVER DHCP</div>
-                        </div>
-                        <div class="text-yellow-500 animate-pulse">ASIGNANDO IP DINÁMICA...</div>
-                        <div class="w-full h-1 bg-white/10 relative"><div class="absolute h-full w-full bg-green-500/40 animate-flow"></div></div>
-                      </div>`,
-                SWITCH: `<div class="grid grid-cols-4 gap-4">
-                            <div class="w-8 h-8 border border-white/20 flex items-center justify-center text-[8px]">P1</div>
-                            <div class="w-8 h-8 border border-green-500 bg-green-500/20 flex items-center justify-center text-[8px] animate-pulse">P2</div>
-                            <div class="w-8 h-8 border border-white/20 flex items-center justify-center text-[8px]">P3</div>
-                            <div class="w-8 h-8 border border-white/20 flex items-center justify-center text-[8px]">P4</div>
-                            <div class="col-span-4 h-4 bg-slate-800 rounded border border-slate-700"></div>
-                         </div>`,
-                MASK: `<div class="flex flex-col items-center gap-2 mono text-xs">
-                        <div class="text-blue-400 tracking-widest">11000000.10101000.00000001</div>
-                        <div class="text-red-500 font-black tracking-widest">11111111.11111111.11111111</div>
-                        <div class="w-full h-px bg-white/20 my-1"></div>
-                        <div class="text-green-400">FILTRO DE SUBRED ACTIVADO</div>
-                      </div>`,
-                GATEWAY: `<div class="relative w-full h-full flex items-center justify-center">
-                            <div class="w-24 h-24 border-2 border-dashed border-white/20 rounded-full animate-rotation absolute"></div>
-                            <div class="w-20 h-20 border-r-4 border-white/40 rounded-full"></div>
-                            <div class="absolute right-10 w-4 h-4 bg-red-500 rounded-full animate-flow"></div>
-                            <span class="absolute text-[8px] font-bold">SALIDA INTERNET</span>
-                          </div>`,
-                DNS: `<div class="flex flex-col items-center gap-2">
-                        <div class="text-xs italic text-blue-300">www.google.cl</div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" class="animate-bounce"><polyline points="7 13 12 18 17 13"></polyline></svg>
-                        <div class="text-xs font-bold text-green-400">142.251.32.35</div>
-                      </div>`,
-                SERVER: `<div class="relative space-y-2">
-                            <div class="w-20 h-6 bg-blue-600 rounded flex items-center justify-center text-[8px] animate-pulse">SOLICITUD</div>
-                            <div class="w-20 h-6 bg-slate-800 rounded border border-white/20 flex items-center justify-center text-[10px] font-black">SERVIDOR</div>
-                            <div class="w-20 h-6 bg-green-600 rounded flex items-center justify-center text-[8px] animate-pulse">RESPUESTA</div>
-                         </div>`,
-                CLIENT: `<div class="flex flex-col items-center gap-4">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="cyan" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>
-                            <div class="flex gap-2">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
-                                <span class="text-[8px] uppercase tracking-widest">Pidiendo Datos...</span>
-                            </div>
-                         </div>`,
-                TCP: `<div class="flex gap-2">
-                        <div class="w-8 h-8 bg-white/10 flex items-center justify-center text-[8px] border-b-2 border-red-500">PKT 1</div>
-                        <div class="w-8 h-8 bg-white/10 flex items-center justify-center text-[8px] border-b-2 border-red-500 animate-pulse">PKT 2</div>
-                        <div class="w-8 h-8 bg-white/10 flex items-center justify-center text-[8px] border-b-2 border-red-500">PKT 3</div>
-                        <div class="absolute bottom-10 text-[8px] text-stone-400 uppercase">Ordenando Secuencia</div>
-                      </div>`,
-                MAC: `<div class="border-2 border-white/10 p-4 rounded-xl glass">
-                        <div class="text-[10px] mono text-yellow-500 mb-2">HEX ID: AC-22-0B-34-FF-E1</div>
-                        <div class="w-full h-1 bg-yellow-950 rounded-full overflow-hidden">
-                            <div class="w-1/2 h-full bg-yellow-500 animate-flow"></div>
-                        </div>
-                        <p class="text-[8px] mt-2 text-center uppercase tracking-widest">ID Físico Permanente</p>
-                      </div>`,
-                LAN: `<div class="relative w-full h-full">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-32 h-20 border-2 border-white/10 rounded-3xl animate-rotation"></div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-10 p-4">
-                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-blue-500 rounded-sm"></div>
-                        </div>
-                      </div>`,
-                STAR: `<div class="relative w-full h-full flex items-center justify-center">
-                        <div class="w-10 h-10 bg-red-600 rounded-full z-10 border-4 border-red-900 shadow-[0_0_20px_red]"></div>
-                        <div class="absolute w-full h-px bg-white/10 rotate-45"></div>
-                        <div class="absolute w-full h-px bg-white/10 -rotate-45"></div>
-                        <div class="absolute w-px h-full bg-white/10"></div>
-                        <div class="absolute top-4 left-4 w-3 h-3 bg-blue-500 rounded-full"></div>
-                        <div class="absolute bottom-4 right-4 w-3 h-3 bg-blue-500 rounded-full"></div>
-                       </div>`,
-                SECURITY: `<div class="flex flex-col items-center">
-                            <div class="relative">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="yellow" stroke-width="2" class="animate-pulse-custom"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <div class="absolute top-1/2 left-full ml-4 text-[8px] font-mono text-green-500">AES-256</div>
-                            </div>
-                            <div class="mt-4 text-[8px] tracking-[4px]">ENCRIPTANDO...</div>
-                           </div>`,
-                BACKUP: `<div class="flex items-center gap-8">
-                            <div class="w-10 h-10 bg-blue-500/20 border border-blue-500 rounded flex items-center justify-center text-[8px]">DATA</div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" class="animate-flow"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
-                            <div class="w-12 h-12 bg-green-500/40 border-2 border-green-500 rounded-lg flex items-center justify-center shadow-[0_0_15px_green]">VAULT</div>
-                         </div>`,
-                VLAN: `<div class="space-y-4 w-full px-10">
-                        <div class="h-4 w-full bg-red-500/30 border border-red-500 rounded flex items-center px-2 text-[8px]">VLAN 10: ALUMNOS</div>
-                        <div class="h-4 w-full bg-blue-500/30 border border-blue-500 rounded flex items-center px-2 text-[8px]">VLAN 20: DOCENTES</div>
-                        <div class="text-[8px] text-center italic text-stone-500">Segmentación Lógica sobre 1 Cable</div>
-                      </div>`,
-                CLOUD: `<div class="relative">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5" class="animate-bounce-slow"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-2 h-2 bg-white rounded-full animate-ping"></div>
-                            </div>
-                         </div>`,
-                AUTH: `<div class="flex flex-col items-center gap-3">
-                        <div class="flex gap-2">
-                            <div class="w-4 h-4 bg-white/10 border border-white/20"></div>
-                            <div class="w-4 h-4 bg-white/10 border border-white/20"></div>
-                            <div class="w-4 h-4 bg-white/10 border border-white/20"></div>
-                        </div>
-                        <div class="bg-green-600 text-[10px] font-black px-4 py-1 rounded-full animate-pulse">IDENTIDAD CONFIRMADA</div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="lightgreen" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      </div>`
-            };
-
-            box.innerHTML = layouts[type] || '<div class="text-white/20">No Visual Data</div>';
-        }
-
-        const icons = {
-            globe: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
-            refresh: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>`,
-            wifi: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>`,
-            shield: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
-            cpu: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line></svg>`,
-            layers: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>`,
-            server: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>`,
-            monitor: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>`,
-            cloud: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`,
-            settings: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09"></path></svg>`,
-            share: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle></svg>`,
-            terminal: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`,
-            key: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778z"></path></svg>`,
-            lock: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`,
-            'user-check': `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle></svg>`,
-            database: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`,
-            'hard-drive': `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"></line><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89"></path></svg>`,
-            help: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`
+        /* =========================================================
+           ICONOS
+           ========================================================= */
+        const ICONS = {
+            globe:      `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>`,
+            refresh:    `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.5 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+            wifi:       `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>`,
+            shield:     `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+            cpu:        `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/></svg>`,
+            switch:     `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="20" height="6" rx="1"/><line x1="6" y1="12" x2="6" y2="12"/><line x1="10" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="14" y2="12"/><line x1="18" y1="12" x2="18" y2="12"/></svg>`,
+            server:     `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
+            monitor:    `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+            cloud:      `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
+            settings:   `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+            door:       `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V4h12v16M4 20h16M10 12h.01"/></svg>`,
+            terminal:   `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
+            key:        `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
+            lock:       `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+            'user-check': `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>`,
+            'hard-drive': `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>`,
+            help:       `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+            layers:     `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+            star:       `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6M5.6 5.6l4.2 4.2M14.2 14.2l4.2 4.2M5.6 18.4l4.2-4.2M14.2 9.8l4.2-4.2"/></svg>`,
+            lan:        `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 14V9M12 14V9M18 14V9M4 9h16"/></svg>`
         };
 
-        function updatePage() {
-            const concept = concepts[currentIndex];
-            document.getElementById('concept-title').innerText = concept.title;
-            document.getElementById('concept-definition').innerText = concept.definition;
-            document.getElementById('concept-example').innerText = concept.example;
-            document.getElementById('osi-layer').innerText = concept.layer || "N/A";
-            document.getElementById('page-indicator').innerText = `HOJA ${currentIndex + 1} DE 20`;
+        /* =========================================================
+           SIMULACIONES — visuales enriquecidos
+           ========================================================= */
+        const SIMS = {
+            /* ---- EJE 1 ---- */
+            LAN: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 300 220" class="w-full h-full">
+                        <rect x="130" y="90" width="40" height="30" rx="3" fill="rgba(245,158,11,0.2)" stroke="#f59e0b" stroke-width="2"/>
+                        <text x="150" y="108" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="700" font-family="JetBrains Mono">SW</text>
+                        ${[
+                            [60, 40], [150, 30], [240, 40],
+                            [40, 120], [260, 120],
+                            [60, 180], [150, 190], [240, 180]
+                        ].map(([x, y], i) => `
+                            <line x1="${x}" y1="${y}" x2="150" y2="105" stroke="rgba(245,158,11,0.3)" stroke-width="1.5" stroke-dasharray="3 3" class="animate-dash"/>
+                            <rect x="${x-14}" y="${y-10}" width="28" height="20" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                            <circle cx="${x}" cy="${y}" r="2" fill="#f59e0b">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="${1.5 + i*0.2}s" repeatCount="indefinite"/>
+                            </circle>
+                        `).join('')}
+                    </svg>
+                    <div class="absolute bottom-2 left-4 text-[9px] uppercase tracking-widest text-amber-400 font-bold mono">Sala 3M TP · 8 equipos LAN</div>
+                </div>`,
 
-            // Barra de progreso
-            const progress = ((currentIndex + 1) / 20) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
+            STAR: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 300 220" class="w-full h-full">
+                        <circle cx="150" cy="110" r="40" fill="none" stroke="rgba(245,158,11,0.2)" stroke-width="1" stroke-dasharray="2 3"/>
+                        <circle cx="150" cy="110" r="70" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="1" stroke-dasharray="2 3"/>
+                        ${[0,45,90,135,180,225,270,315].map(a => {
+                            const r = 75;
+                            const x = 150 + Math.cos(a*Math.PI/180)*r;
+                            const y = 110 + Math.sin(a*Math.PI/180)*r;
+                            return `<line x1="150" y1="110" x2="${x}" y2="${y}" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+                                    <circle cx="${x}" cy="${y}" r="6" fill="rgba(245,158,11,0.25)" stroke="#f59e0b" stroke-width="1.5"/>`;
+                        }).join('')}
+                        <circle cx="150" cy="110" r="16" fill="#f59e0b" opacity="0.3"/>
+                        <circle cx="150" cy="110" r="16" fill="#f59e0b" opacity="0.3" class="animate-pulse-ring" style="transform-origin: 150px 110px"/>
+                        <circle cx="150" cy="110" r="10" fill="#f59e0b"/>
+                        <text x="150" y="114" text-anchor="middle" fill="white" font-size="8" font-weight="800">HUB</text>
+                    </svg>
+                    <div class="absolute bottom-2 left-4 text-[9px] uppercase tracking-widest text-amber-400 font-bold mono">Nodo central · 8 hosts</div>
+                </div>`,
+
+            MAC: () => `
+                <div class="sim-scene flex-col gap-4">
+                    <div class="relative glass-strong rounded-2xl p-5 border-2 border-amber-500/40 w-full max-w-xs">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-[9px] uppercase tracking-widest text-amber-400 font-bold">Network Card</div>
+                            <div class="w-2 h-2 rounded-full bg-amber-400 animate-blink"></div>
+                        </div>
+                        <div class="mono text-lg text-amber-300 text-center tracking-wider py-2 border-y border-white/10">
+                            AC:22:0B:34:FF:E1
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mt-3 text-[9px] mono">
+                            <div class="text-slate-400">OUI (fabricante)</div>
+                            <div class="text-amber-300 text-right">AC:22:0B</div>
+                            <div class="text-slate-400">NIC (serial)</div>
+                            <div class="text-amber-300 text-right">34:FF:E1</div>
+                        </div>
+                    </div>
+                    <div class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">48 bits · grabado de fábrica · inmutable</div>
+                </div>`,
+
+            SWITCH: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 300 180" class="w-full h-full">
+                        <rect x="30" y="70" width="240" height="40" rx="6" fill="rgba(20,20,30,0.8)" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+                        <text x="150" y="60" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="800" letter-spacing="2">SWITCH · MAC TABLE</text>
+                        ${[1,2,3,4,5,6,7,8].map((p,i) => {
+                            const x = 50 + i*27;
+                            const active = i === 2 || i === 5;
+                            return `
+                                <rect x="${x-9}" y="78" width="18" height="24" rx="2"
+                                    fill="${active ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.08)'}"
+                                    stroke="${active ? '#10b981' : 'rgba(255,255,255,0.2)'}" stroke-width="1.2"/>
+                                <text x="${x}" y="94" text-anchor="middle" fill="${active ? '#10b981' : '#94a3b8'}" font-size="8" font-weight="700" font-family="JetBrains Mono">${p}</text>
+                                ${active ? `<circle cx="${x}" cy="72" r="1.8" fill="#10b981" class="animate-blink"/>` : ''}
+                            `;
+                        }).join('')}
+                        <path d="M 77 115 Q 77 140 150 140 Q 223 140 223 115" stroke="#10b981" stroke-width="1.5" fill="none" stroke-dasharray="4 3" class="animate-dash"/>
+                        <text x="150" y="158" text-anchor="middle" fill="#10b981" font-size="8" font-weight="700" font-family="JetBrains Mono">P3 → P6 · ENVÍO DIRIGIDO</text>
+                    </svg>
+                </div>`,
+
+            VLAN: () => `
+                <div class="sim-scene flex-col gap-3 w-full px-4">
+                    <div class="w-full glass-strong rounded-xl p-3 border-l-4 border-amber-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+                                <span class="text-xs font-bold mono text-amber-300">VLAN 10</span>
+                                <span class="text-[10px] text-slate-400">Alumnos · 192.168.10.0/24</span>
+                            </div>
+                            <div class="h-1 w-20 bg-amber-500/20 rounded-full overflow-hidden"><div class="h-full w-1/3 bg-amber-400 animate-flow"></div></div>
+                        </div>
+                    </div>
+                    <div class="w-full glass-strong rounded-xl p-3 border-l-4 border-cyan-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                <span class="text-xs font-bold mono text-cyan-300">VLAN 20</span>
+                                <span class="text-[10px] text-slate-400">Profesores · 192.168.20.0/24</span>
+                            </div>
+                            <div class="h-1 w-20 bg-cyan-500/20 rounded-full overflow-hidden"><div class="h-full w-1/3 bg-cyan-400 animate-flow" style="animation-delay: 0.8s"></div></div>
+                        </div>
+                    </div>
+                    <div class="w-full glass-strong rounded-xl p-3 border-l-4 border-rose-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-rose-400"></div>
+                                <span class="text-xs font-bold mono text-rose-300">VLAN 99</span>
+                                <span class="text-[10px] text-slate-400">Gestión · 192.168.99.0/24</span>
+                            </div>
+                            <div class="h-1 w-20 bg-rose-500/20 rounded-full overflow-hidden"><div class="h-full w-1/3 bg-rose-400 animate-flow" style="animation-delay: 1.6s"></div></div>
+                        </div>
+                    </div>
+                    <div class="text-[9px] uppercase tracking-widest text-slate-500 text-center mt-1">Un solo cable físico · 3 redes lógicas aisladas</div>
+                </div>`,
+
+            /* ---- EJE 2 ---- */
+            IP: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="text-[9px] uppercase tracking-widest text-cyan-400 font-bold mb-2 text-center">Dirección IPv4 · 32 bits</div>
+                        <div class="glass-strong rounded-xl p-4">
+                            <div class="grid grid-cols-4 gap-1 mb-3">
+                                ${['192','168','1','25'].map((oct,i) => `
+                                    <div class="text-center">
+                                        <div class="mono text-xl font-bold text-cyan-300 py-1">${oct}</div>
+                                        <div class="mono text-[8px] text-cyan-500/60">${parseInt(oct).toString(2).padStart(8,'0')}</div>
+                                        <div class="text-[8px] uppercase text-slate-500 mt-1 tracking-widest">Oct ${i+1}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="border-t border-white/10 pt-2 flex items-center justify-between text-[9px] mono">
+                                <span class="text-slate-400">Red (24 bits)</span>
+                                <span class="text-cyan-300">192.168.1.0</span>
+                            </div>
+                            <div class="flex items-center justify-between text-[9px] mono">
+                                <span class="text-slate-400">Host (8 bits)</span>
+                                <span class="text-cyan-300">.25</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 mt-3">
+                            <div class="w-2 h-2 rounded-full bg-cyan-400 animate-blink"></div>
+                            <span class="text-[9px] uppercase tracking-widest text-cyan-400 font-bold">ID único en la red</span>
+                        </div>
+                    </div>
+                </div>`,
+
+            MASK: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm glass-strong rounded-xl p-4">
+                        <div class="text-[9px] uppercase tracking-widest text-cyan-400 font-bold mb-3">Operación AND · máscara + IP</div>
+                        <div class="space-y-2 mono text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="text-slate-500 w-12">IP</span>
+                                <span class="text-cyan-300">11000000.10101000.00000001.</span><span class="text-amber-300">00011001</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-slate-500 w-12">MASK</span>
+                                <span class="text-cyan-300">11111111.11111111.11111111.</span><span class="text-rose-300">00000000</span>
+                            </div>
+                            <div class="border-t border-white/10 pt-2"></div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-cyan-400 w-12">AND =</span>
+                                <span class="text-cyan-300">11000000.10101000.00000001.</span><span class="text-rose-300">00000000</span>
+                            </div>
+                        </div>
+                        <div class="mt-3 grid grid-cols-2 gap-2 text-[10px]">
+                            <div class="glass rounded-lg p-2">
+                                <div class="text-slate-500 text-[8px] uppercase">Red</div>
+                                <div class="mono text-cyan-300 font-bold">192.168.1.0</div>
+                            </div>
+                            <div class="glass rounded-lg p-2">
+                                <div class="text-slate-500 text-[8px] uppercase">/prefijo</div>
+                                <div class="mono text-cyan-300 font-bold">/24</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+
+            GATEWAY: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 300 200" class="w-full h-full">
+                        <rect x="20" y="40" width="110" height="120" rx="8" fill="rgba(6,182,212,0.08)" stroke="rgba(6,182,212,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <text x="75" y="30" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="800" letter-spacing="2">LAN 192.168.1.0/24</text>
+                        ${[[50,70],[75,70],[100,70],[50,120],[75,120],[100,120]].map(([x,y]) => `
+                            <rect x="${x-10}" y="${y-8}" width="20" height="16" rx="2" fill="rgba(6,182,212,0.2)" stroke="#06b6d4" stroke-width="1"/>
+                        `).join('')}
+                        <rect x="140" y="85" width="40" height="30" rx="4" fill="rgba(6,182,212,0.3)" stroke="#06b6d4" stroke-width="2"/>
+                        <text x="160" y="95" text-anchor="middle" fill="#06b6d4" font-size="7" font-weight="800">GW</text>
+                        <text x="160" y="105" text-anchor="middle" fill="#06b6d4" font-size="6" font-family="JetBrains Mono">.1.1</text>
+                        <path d="M 130 100 L 140 100" stroke="#06b6d4" stroke-width="1.5"/>
+                        <path d="M 180 100 L 220 100" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="3 3" class="animate-dash"/>
+                        <circle cx="260" cy="100" r="25" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                        <text x="260" y="98" text-anchor="middle" fill="#94a3b8" font-size="7" font-weight="800">WWW</text>
+                        <text x="260" y="108" text-anchor="middle" fill="#64748b" font-size="6">Internet</text>
+                        <circle cx="200" cy="100" r="3" fill="#06b6d4">
+                            <animateMotion path="M -60 0 L 60 0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                    <div class="absolute bottom-2 left-4 text-[9px] uppercase tracking-widest text-cyan-400 font-bold mono">Paquete → Gateway → Internet</div>
+                </div>`,
+
+            ROUTER: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm glass-strong rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-[9px] uppercase tracking-widest text-cyan-400 font-bold">Routing Table</div>
+                            <div class="flex items-center gap-1 text-[9px] text-emerald-400 mono">
+                                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-blink"></div>
+                                ACTIVA
+                            </div>
+                        </div>
+                        <div class="space-y-1.5 mono text-[10px]">
+                            <div class="grid grid-cols-3 gap-2 text-slate-500 text-[9px] uppercase tracking-widest border-b border-white/10 pb-1">
+                                <span>Destino</span><span>Siguiente salto</span><span>Iface</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-cyan-300 py-1 hover:bg-white/5 rounded">
+                                <span>192.168.1.0/24</span><span class="text-slate-400">directo</span><span>eth0</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-cyan-300 py-1 hover:bg-white/5 rounded">
+                                <span>192.168.2.0/24</span><span class="text-slate-400">directo</span><span>eth1</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-amber-300 py-1 hover:bg-white/5 rounded bg-amber-500/10">
+                                <span>0.0.0.0/0</span><span class="text-slate-300">200.14.28.1</span><span>wan</span>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[9px] text-slate-500 italic">→ cualquier destino no conocido se envía al ISP</div>
+                    </div>
+                </div>`,
+
+            NAT: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 320 200" class="w-full h-full">
+                        <!-- LAN side -->
+                        <g>
+                            ${[[40,50],[40,100],[40,150]].map(([x,y],i) => `
+                                <rect x="${x-15}" y="${y-10}" width="30" height="20" rx="2" fill="rgba(6,182,212,0.2)" stroke="#06b6d4" stroke-width="1"/>
+                                <text x="${x}" y="${y+3}" text-anchor="middle" fill="#06b6d4" font-size="7" font-family="JetBrains Mono">.1.${10+i}</text>
+                                <line x1="${x+16}" y1="${y}" x2="140" y2="100" stroke="rgba(6,182,212,0.3)" stroke-width="1" stroke-dasharray="2 2"/>
+                            `).join('')}
+                        </g>
+                        <!-- NAT box -->
+                        <rect x="130" y="80" width="60" height="40" rx="6" fill="rgba(245,158,11,0.2)" stroke="#f59e0b" stroke-width="2"/>
+                        <text x="160" y="95" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="800">NAT</text>
+                        <text x="160" y="110" text-anchor="middle" fill="#f59e0b" font-size="6" font-family="JetBrains Mono">translate</text>
+                        <!-- Out -->
+                        <line x1="190" y1="100" x2="260" y2="100" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3 2" class="animate-dash"/>
+                        <rect x="250" y="85" width="50" height="30" rx="3" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="1.5"/>
+                        <text x="275" y="100" text-anchor="middle" fill="#10b981" font-size="7" font-weight="800" font-family="JetBrains Mono">200.14.28.47</text>
+                        <text x="275" y="110" text-anchor="middle" fill="#10b981" font-size="6">pública</text>
+                        <!-- Labels -->
+                        <text x="40" y="25" text-anchor="middle" fill="#06b6d4" font-size="8" font-weight="800">PRIVADA</text>
+                        <text x="275" y="75" text-anchor="middle" fill="#10b981" font-size="8" font-weight="800">ISP / INTERNET</text>
+                    </svg>
+                </div>`,
+
+            /* ---- EJE 3 ---- */
+            TCP: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="text-[9px] uppercase tracking-widest text-emerald-400 font-bold mb-3 text-center">Three-way handshake</div>
+                        <div class="grid grid-cols-2 gap-2 text-[10px] mono">
+                            <div class="text-center">
+                                <div class="glass-strong rounded-lg p-2 mb-1">
+                                    <div class="text-[9px] uppercase text-slate-400">Cliente</div>
+                                    <div class="text-emerald-300 font-bold">192.168.1.25</div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="glass-strong rounded-lg p-2 mb-1">
+                                    <div class="text-[9px] uppercase text-slate-400">Servidor</div>
+                                    <div class="text-emerald-300 font-bold">200.14.28.47</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <div class="w-16 text-[8px] text-emerald-400 mono">SYN →</div>
+                                <div class="flex-1 h-1 bg-emerald-500/20 rounded-full overflow-hidden"><div class="h-full w-full bg-emerald-400 animate-flow"></div></div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-16 text-[8px] text-amber-400 mono text-right">← SYN-ACK</div>
+                                <div class="flex-1 h-1 bg-amber-500/20 rounded-full overflow-hidden"><div class="h-full w-full bg-amber-400 animate-flow" style="animation-delay: 0.6s"></div></div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-16 text-[8px] text-emerald-400 mono">ACK →</div>
+                                <div class="flex-1 h-1 bg-emerald-500/20 rounded-full overflow-hidden"><div class="h-full w-full bg-emerald-400 animate-flow" style="animation-delay: 1.2s"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-center text-[9px] uppercase tracking-widest text-emerald-400 font-bold">✓ Conexión establecida</div>
+                    </div>
+                </div>`,
+
+            DHCP: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm glass-strong rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-[9px] uppercase tracking-widest text-emerald-400 font-bold">DHCP · DORA</div>
+                            <div class="w-2 h-2 rounded-full bg-emerald-400 animate-blink"></div>
+                        </div>
+                        <div class="space-y-2">
+                            ${[
+                                ['D', 'DISCOVER', 'Cliente → Broadcast', '¿Hay algún DHCP?'],
+                                ['O', 'OFFER', 'Server → Cliente', 'Toma 192.168.1.47'],
+                                ['R', 'REQUEST', 'Cliente → Broadcast', 'Acepto esa IP'],
+                                ['A', 'ACK', 'Server → Cliente', '✓ Confirmado · 24h']
+                            ].map(([letter, step, dir, msg], i) => `
+                                <div class="flex items-center gap-3 glass rounded-lg p-2" style="animation-delay: ${i*0.2}s">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
+                                        <span class="mono font-bold text-emerald-300 text-sm">${letter}</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-[10px] font-bold text-emerald-300 mono">${step}</span>
+                                            <span class="text-[8px] text-slate-500 truncate">${dir}</span>
+                                        </div>
+                                        <div class="text-[10px] text-slate-300 truncate">${msg}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>`,
+
+            DNS: () => `
+                <div class="sim-scene flex-col gap-3">
+                    <div class="w-full max-w-sm">
+                        <div class="glass-strong rounded-xl p-3 mb-2 flex items-center gap-3">
+                            <div class="text-xl">🌐</div>
+                            <div class="flex-1">
+                                <div class="text-[9px] uppercase tracking-widest text-slate-400">Usuario escribe</div>
+                                <div class="mono text-sm text-emerald-300 font-bold">www.aulavirtual.cl</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
+                                <path d="M10 5v20m-5-5l5 5 5-5" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-blink"/>
+                            </svg>
+                        </div>
+                        <div class="glass rounded-xl p-3 mb-2 border border-emerald-500/30">
+                            <div class="text-[9px] uppercase tracking-widest text-emerald-400 mb-1">Consulta DNS</div>
+                            <div class="mono text-[10px] text-slate-300">
+                                <div>Q: A aulavirtual.cl ?</div>
+                                <div class="text-emerald-300">A: 142.250.80.67</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
+                                <path d="M10 5v20m-5-5l5 5 5-5" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-blink" style="animation-delay: 0.5s"/>
+                            </svg>
+                        </div>
+                        <div class="glass-strong rounded-xl p-3 flex items-center gap-3">
+                            <div class="text-xl">🎯</div>
+                            <div class="flex-1">
+                                <div class="text-[9px] uppercase tracking-widest text-slate-400">Conexión real a</div>
+                                <div class="mono text-sm text-emerald-300 font-bold">142.250.80.67</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+
+            CLIENT: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="glass-strong rounded-xl overflow-hidden border border-emerald-500/30">
+                            <div class="bg-black/40 px-3 py-1.5 flex items-center gap-1.5 border-b border-white/10">
+                                <div class="flex gap-1">
+                                    <div class="w-2 h-2 rounded-full bg-rose-500"></div>
+                                    <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+                                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                </div>
+                                <div class="flex-1 text-center text-[9px] text-slate-500 mono">chrome · navegador cliente</div>
+                            </div>
+                            <div class="p-3">
+                                <div class="glass rounded-md p-2 mb-2 mono text-[9px]">
+                                    <div class="text-emerald-300">GET /guia-redes.pdf HTTP/1.1</div>
+                                    <div class="text-slate-400">Host: portal.liceo.cl</div>
+                                    <div class="text-slate-400">User-Agent: Chrome/120</div>
+                                </div>
+                                <div class="flex items-center gap-2 text-[10px]">
+                                    <div class="w-2 h-2 rounded-full bg-emerald-400 animate-blink"></div>
+                                    <span class="text-emerald-300 mono">Esperando respuesta...</span>
+                                </div>
+                                <div class="mt-2 h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full w-1/2 bg-emerald-400 animate-flow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-[9px] uppercase tracking-widest text-emerald-400 font-bold text-center mt-3">Cliente inicia la comunicación</div>
+                    </div>
+                </div>`,
+
+            SERVER: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="glass-strong rounded-xl p-4 border border-emerald-500/30">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold">Server</div>
+                                        <div class="text-[9px] text-slate-400 mono">portal.liceo.cl</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-blink"></div>
+                                    <span class="text-[9px] text-emerald-400 font-bold uppercase">Activo</span>
+                                </div>
+                            </div>
+                            <div class="space-y-1.5 mono text-[9px]">
+                                <div class="flex items-center justify-between glass rounded px-2 py-1">
+                                    <span class="text-emerald-300">← GET /guia-redes.pdf</span>
+                                    <span class="text-slate-500">200 OK</span>
+                                </div>
+                                <div class="flex items-center justify-between glass rounded px-2 py-1">
+                                    <span class="text-emerald-300">← GET /login</span>
+                                    <span class="text-slate-500">200 OK</span>
+                                </div>
+                                <div class="flex items-center justify-between glass rounded px-2 py-1 bg-amber-500/5">
+                                    <span class="text-amber-300">← POST /auth</span>
+                                    <span class="text-amber-400">procesando...</span>
+                                </div>
+                                <div class="flex items-center justify-between glass rounded px-2 py-1">
+                                    <span class="text-slate-400">← GET /notas.json</span>
+                                    <span class="text-rose-400">404</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 grid grid-cols-3 gap-2 text-center">
+                                <div class="glass rounded p-1.5">
+                                    <div class="text-emerald-300 font-bold text-sm">142</div>
+                                    <div class="text-[8px] text-slate-500 uppercase">req/min</div>
+                                </div>
+                                <div class="glass rounded p-1.5">
+                                    <div class="text-amber-300 font-bold text-sm">12ms</div>
+                                    <div class="text-[8px] text-slate-500 uppercase">latencia</div>
+                                </div>
+                                <div class="glass rounded p-1.5">
+                                    <div class="text-cyan-300 font-bold text-sm">27</div>
+                                    <div class="text-[8px] text-slate-500 uppercase">activos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+
+            /* ---- EJE 4 ---- */
+            FIREWALL: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 300 200" class="w-full h-full">
+                        <!-- Muro -->
+                        <rect x="140" y="20" width="20" height="160" fill="rgba(244,63,94,0.2)" stroke="#f43f5e" stroke-width="2"/>
+                        <text x="150" y="12" text-anchor="middle" fill="#f43f5e" font-size="8" font-weight="800" letter-spacing="2">FIREWALL</text>
+                        <!-- Paquetes permitidos (verde) -->
+                        <circle cx="40" cy="60" r="4" fill="#10b981">
+                            <animate attributeName="cx" values="40;260" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="270" y="64" fill="#10b981" font-size="7" font-weight="700" font-family="JetBrains Mono">✓ ALLOW</text>
+                        <!-- Paquete bloqueado (rojo) -->
+                        <circle cx="40" cy="100" r="4" fill="#f43f5e">
+                            <animate attributeName="cx" values="40;135;135;40" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="15" y="104" fill="#f43f5e" font-size="7" font-weight="700" font-family="JetBrains Mono" text-anchor="end">DENY</text>
+                        <!-- Paquete permitido -->
+                        <circle cx="40" cy="140" r="4" fill="#10b981">
+                            <animate attributeName="cx" values="40;260" dur="3.5s" repeatCount="indefinite" begin="0.5s"/>
+                        </circle>
+                        <text x="270" y="144" fill="#10b981" font-size="7" font-weight="700" font-family="JetBrains Mono">✓ ALLOW</text>
+                        <!-- Reglas -->
+                        <g transform="translate(150, 185)">
+                            <text text-anchor="middle" fill="#64748b" font-size="7" font-family="JetBrains Mono">Rule: ALLOW 80,443 · DENY 22</text>
+                        </g>
+                    </svg>
+                </div>`,
+
+            AUTH: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="glass-strong rounded-xl p-4 border border-rose-500/30">
+                            <div class="text-[9px] uppercase tracking-widest text-rose-400 font-bold mb-3 text-center">Credenciales</div>
+                            <div class="space-y-2 mb-3">
+                                <div class="glass rounded-lg p-2 flex items-center gap-2">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/></svg>
+                                    <span class="mono text-xs text-slate-300">jperez.3a</span>
+                                </div>
+                                <div class="glass rounded-lg p-2 flex items-center gap-2">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    <span class="mono text-xs text-slate-300">••••••••••</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-center mb-3">
+                                <svg width="20" height="24" viewBox="0 0 20 24" fill="none">
+                                    <path d="M10 3v18m-5-5l5 5 5-5" stroke="#f43f5e" stroke-width="2" class="animate-blink"/>
+                                </svg>
+                            </div>
+                            <div class="glass rounded-lg p-3 bg-emerald-500/10 border border-emerald-500/40">
+                                <div class="flex items-center gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <div class="flex-1">
+                                        <div class="text-xs text-emerald-300 font-bold">Identidad verificada</div>
+                                        <div class="text-[9px] text-slate-400 mono">Rol: alumno · Sesión: 2h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+
+            SECURITY: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div class="glass-strong rounded-xl p-3 border border-white/10">
+                                <div class="text-[9px] uppercase tracking-widest text-slate-400 font-bold mb-2">Plaintext</div>
+                                <div class="mono text-[10px] text-slate-300 leading-tight">
+                                    Hola mundo<br>liceo2025<br>taller.pdf
+                                </div>
+                            </div>
+                            <div class="glass-strong rounded-xl p-3 border border-rose-500/40 bg-rose-500/5">
+                                <div class="text-[9px] uppercase tracking-widest text-rose-400 font-bold mb-2">Cipher AES-256</div>
+                                <div class="mono text-[10px] text-rose-300 leading-tight break-all">
+                                    7f3a9b2e...<br>ac884f11...<br>d93cc20e...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 glass rounded-lg p-2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <div class="flex-1">
+                                <div class="text-[10px] font-bold text-rose-300">Cifrado simétrico</div>
+                                <div class="text-[9px] text-slate-500 mono">key: 256 bits · WPA2</div>
+                            </div>
+                            <div class="text-[9px] text-emerald-400 font-bold">ACTIVO</div>
+                        </div>
+                    </div>
+                </div>`,
+
+            BACKUP: () => `
+                <div class="sim-scene">
+                    <div class="w-full max-w-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="flex-1 glass-strong rounded-xl p-3 border border-cyan-500/30">
+                                <div class="text-[9px] uppercase tracking-widest text-cyan-400 font-bold mb-1">Original</div>
+                                <div class="flex items-center gap-2">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>
+                                    <div>
+                                        <div class="mono text-xs text-cyan-300">server-01</div>
+                                        <div class="text-[9px] text-slate-500">142 GB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <svg width="24" height="14" viewBox="0 0 24 14" fill="none">
+                                <path d="M2 7h20m-5-5l5 5-5 5" stroke="#f43f5e" stroke-width="2" class="animate-blink"/>
+                            </svg>
+                            <div class="flex-1 glass-strong rounded-xl p-3 border border-rose-500/30">
+                                <div class="text-[9px] uppercase tracking-widest text-rose-400 font-bold mb-1">Backup</div>
+                                <div class="flex items-center gap-2">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+                                    <div>
+                                        <div class="mono text-xs text-rose-300">vault-ext</div>
+                                        <div class="text-[9px] text-slate-500">24h atrás</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-1 mono text-[9px]">
+                            <div class="flex items-center gap-2 glass rounded px-2 py-1">
+                                <span class="text-slate-500">21:00</span>
+                                <span class="text-emerald-300">✓ backup diferencial · 340 MB</span>
+                            </div>
+                            <div class="flex items-center gap-2 glass rounded px-2 py-1">
+                                <span class="text-slate-500">Dom</span>
+                                <span class="text-emerald-300">✓ backup completo · 142 GB</span>
+                            </div>
+                            <div class="flex items-center gap-2 glass rounded px-2 py-1 bg-emerald-500/5">
+                                <span class="text-emerald-400">✓</span>
+                                <span class="text-emerald-300">Recuperación: 12 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+
+            CLOUD: () => `
+                <div class="sim-scene">
+                    <svg viewBox="0 0 300 220" class="w-full h-full">
+                        <!-- Nube -->
+                        <g transform="translate(150, 60)">
+                            <path d="M -40 0 Q -60 -20 -40 -30 Q -30 -50 -10 -45 Q 0 -60 20 -50 Q 45 -55 45 -30 Q 60 -25 50 -5 Q 55 15 30 15 L -35 15 Q -60 15 -40 0 Z"
+                                fill="rgba(244,63,94,0.1)" stroke="#f43f5e" stroke-width="2"/>
+                            <text text-anchor="middle" y="0" fill="#f43f5e" font-size="10" font-weight="800" letter-spacing="2">CLOUD</text>
+                        </g>
+                        <!-- Servicios adentro -->
+                        <g font-family="JetBrains Mono" font-size="6" fill="#f43f5e" text-anchor="middle">
+                            <text x="120" y="30">storage</text>
+                            <text x="150" y="22">compute</text>
+                            <text x="180" y="30">apps</text>
+                        </g>
+                        <!-- Equipos locales -->
+                        ${[[60,170],[120,180],[180,180],[240,170]].map(([x,y]) => `
+                            <rect x="${x-15}" y="${y-10}" width="30" height="20" rx="2" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                            <line x1="${x}" y1="${y-12}" x2="150" y2="90" stroke="rgba(244,63,94,0.4)" stroke-width="1" stroke-dasharray="3 3" class="animate-dash"/>
+                        `).join('')}
+                        <!-- Sync pulse -->
+                        <circle cx="150" cy="60" r="35" fill="none" stroke="rgba(244,63,94,0.3)" stroke-width="1" class="animate-pulse-ring" style="transform-origin: 150px 60px"/>
+                        <!-- Usuarios -->
+                        <g transform="translate(30, 110)">
+                            <circle cx="0" cy="0" r="6" fill="rgba(6,182,212,0.3)" stroke="#06b6d4" stroke-width="1"/>
+                            <text x="0" y="16" text-anchor="middle" font-size="6" fill="#06b6d4" font-family="JetBrains Mono">liceo</text>
+                        </g>
+                        <g transform="translate(270, 110)">
+                            <circle cx="0" cy="0" r="6" fill="rgba(6,182,212,0.3)" stroke="#06b6d4" stroke-width="1"/>
+                            <text x="0" y="16" text-anchor="middle" font-size="6" fill="#06b6d4" font-family="JetBrains Mono">casa</text>
+                        </g>
+                        <path d="M 36 108 Q 100 70 150 60" stroke="rgba(6,182,212,0.3)" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+                        <path d="M 264 108 Q 200 70 150 60" stroke="rgba(6,182,212,0.3)" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+                    </svg>
+                    <div class="absolute bottom-2 left-4 text-[9px] uppercase tracking-widest text-rose-400 font-bold mono">Acceso desde cualquier lugar · bajo demanda</div>
+                </div>`
+        };
+
+        /* =========================================================
+           APP
+           ========================================================= */
+        let currentIndex = 0;
+
+        function updatePage() {
+            const c = concepts[currentIndex];
+            const axis = AXES[c.axis - 1];
+
+            // Clase de eje (color theme)
+            const mainCard = document.getElementById('mainCard');
+            mainCard.className = mainCard.className.replace(/axis-\d/g, '');
+            mainCard.classList.add(`axis-${c.axis}`);
+            mainCard.style.borderColor = axis.color;
+            mainCard.style.boxShadow = `0 0 60px ${axis.color}22`;
+
+            // Texto
+            document.getElementById('concept-title').innerText = c.title;
+            document.getElementById('concept-subtitle').innerText = c.subtitle;
+            document.getElementById('concept-definition').innerHTML = c.definition.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>');
+            document.getElementById('concept-example').innerText = c.example;
+            document.getElementById('concept-why').innerHTML = c.why.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>');
+
+            // Relaciones como chips clicables
+            const relatedEl = document.getElementById('concept-related');
+            relatedEl.innerHTML = c.related.map(r => {
+                const idx = concepts.findIndex(x => x.title === r);
+                const ax = idx >= 0 ? concepts[idx].axis : c.axis;
+                return `<button onclick="goTo(${idx})" class="chip glass hover:bg-white/10 transition cursor-pointer" style="color: ${AXES[ax-1].color}">${r}</button>`;
+            }).join('');
+
+            // Metadatos
+            document.getElementById('osi-badge').innerText = c.layer;
+            document.getElementById('osi-layer').innerText = c.layer;
+            document.getElementById('concept-role').innerText = c.role;
+            document.getElementById('concept-domain').innerText = c.domain;
+
+            // Posición
+            const axisConcepts = concepts.filter(x => x.axis === c.axis);
+            const positionInAxis = axisConcepts.indexOf(c) + 1;
+            document.getElementById('concept-position').innerText = `${positionInAxis} de ${axisConcepts.length} en el eje`;
+            document.getElementById('axis-label').innerText = `Eje ${c.axis} · ${axis.short}`;
+            document.getElementById('axis-indicator').innerText = `Eje ${c.axis}`;
+            document.getElementById('axis-progress').innerText = `${positionInAxis}/${axisConcepts.length}`;
+            document.getElementById('page-indicator').innerText = `Concepto ${currentIndex + 1} / 20`;
+
+            // Barra
+            document.getElementById('progress-bar').style.width = ((currentIndex + 1) / 20 * 100) + '%';
 
             // Icono
-            document.getElementById('concept-icon').innerHTML = icons[concept.icon] || icons.globe;
+            document.getElementById('concept-icon').innerHTML = ICONS[c.icon] || ICONS.globe;
 
-            // Simulación Única
-            renderSimulation(concept.type);
+            // Simulación
+            document.getElementById('simulation-box').innerHTML = SIMS[c.type] ? SIMS[c.type]() : '<div class="text-white/20 text-center">Sin visualización</div>';
+
+            // Tabs
+            document.querySelectorAll('.axis-tab').forEach(t => {
+                const active = parseInt(t.dataset.axis) === c.axis;
+                t.style.borderColor = active ? AXES[parseInt(t.dataset.axis)-1].color : 'transparent';
+                t.style.background = active ? 'rgba(255,255,255,0.08)' : '';
+            });
+
+            // Timeline
+            renderTimeline();
+
+            // Animación de entrada
+            const anim = document.getElementById('contentAnim');
+            anim.classList.remove('animate-slide-up');
+            void anim.offsetWidth;
+            anim.classList.add('animate-slide-up');
 
             // Botones
             document.getElementById('prevBtn').disabled = currentIndex === 0;
             document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.3' : '1';
-
             document.getElementById('nextBtn').disabled = currentIndex === concepts.length - 1;
             document.getElementById('nextBtn').style.opacity = currentIndex === concepts.length - 1 ? '0.3' : '1';
         }
 
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentIndex < concepts.length - 1) {
-                currentIndex++;
-                updatePage();
-            }
-        });
+        function renderTimeline() {
+            const tl = document.getElementById('timeline');
+            tl.innerHTML = concepts.map((c, i) => {
+                const axis = AXES[c.axis - 1];
+                const isCurrent = i === currentIndex;
+                const isPast = i < currentIndex;
+                const isFirstOfAxis = i === 0 || concepts[i-1].axis !== c.axis;
 
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updatePage();
-            }
+                return `
+                    ${isFirstOfAxis && i > 0 ? '<div class="w-2 flex-shrink-0"></div>' : ''}
+                    <button onclick="goTo(${i})"
+                        class="flex-shrink-0 group relative transition"
+                        title="${c.title}">
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all
+                                ${isCurrent ? 'scale-125' : 'hover:scale-110'}"
+                                style="
+                                    background: ${isCurrent || isPast ? axis.color : 'rgba(255,255,255,0.05)'};
+                                    border: 1px solid ${isCurrent ? 'white' : axis.color + '60'};
+                                    box-shadow: ${isCurrent ? `0 0 16px ${axis.color}` : 'none'};
+                                ">
+                                <span class="mono text-[9px] font-bold ${isCurrent || isPast ? 'text-white' : 'text-slate-400'}">${i+1}</span>
+                            </div>
+                            <div class="text-[8px] uppercase tracking-wider font-bold ${isCurrent ? 'text-white' : 'text-slate-500'} max-w-[60px] truncate">${c.title}</div>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function goTo(i) {
+            if (i < 0 || i >= concepts.length) return;
+            currentIndex = i;
+            updatePage();
+        }
+
+        function goToAxis(axisId) {
+            const firstIdx = concepts.findIndex(c => c.axis === axisId);
+            if (firstIdx >= 0) goTo(firstIdx);
+        }
+
+        // Eventos
+        document.getElementById('nextBtn').addEventListener('click', () => goTo(currentIndex + 1));
+        document.getElementById('prevBtn').addEventListener('click', () => goTo(currentIndex - 1));
+        document.querySelectorAll('.axis-tab').forEach(t => {
+            t.addEventListener('click', () => goToAxis(parseInt(t.dataset.axis)));
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+            if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+            if (['1','2','3','4'].includes(e.key)) goToAxis(parseInt(e.key));
         });
 
         // Inicio
-        window.onload = updatePage;
+        window.addEventListener('load', updatePage);
     </script>
 </body>
 
