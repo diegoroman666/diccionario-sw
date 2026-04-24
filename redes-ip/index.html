@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redes IP — Mapa Conceptual Interactivo · Liceo Polivalente de Requínoa</title>
+    <meta name="description"
+        content="Plataforma educativa interactiva para aprender direccionamiento IP. 3° medio técnico profesional — Informática.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-slate-50 text-slate-800 overflow-hidden">
+
+    <!-- ============ BARRA SUPERIOR ============ -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200">
+        <div class="flex items-center justify-between px-5 py-3">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center shadow-md">
+                    <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-white">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" />
+                        <circle cx="7" cy="6" r="1.6" fill="currentColor" />
+                        <circle cx="14" cy="12" r="1.6" fill="currentColor" />
+                        <circle cx="10" cy="18" r="1.6" fill="currentColor" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold text-slate-900 leading-tight">Configuración de Redes</h1>
+                    <p class="text-xs text-slate-500 leading-tight">Direccionamiento IP · Mapa conceptual</p>
+                </div>
+            </div>
+
+            <div class="flex-1 max-w-md mx-6 hidden md:block">
+                <div class="relative">
+                    <svg viewBox="0 0 24 24" fill="none"
+                        class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                        <path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <input id="searchInput" type="text" placeholder="Buscar concepto (ej: DHCP, broadcast, máscara...)"
+                        class="w-full bg-slate-100 border border-transparent focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-100 outline-none rounded-lg pl-9 pr-3 py-2 text-sm transition">
+                    <div id="searchResults"
+                        class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 max-h-80 overflow-y-auto z-50">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <div class="hidden lg:flex items-center gap-1 mr-2">
+                    <button data-filter="all"
+                        class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-900 text-white font-medium">Todas</button>
+                    <button data-filter="identificacion"
+                        class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-100 text-slate-600 font-medium hover:bg-slate-200">Identificación</button>
+                    <button data-filter="organizacion"
+                        class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-100 text-slate-600 font-medium hover:bg-slate-200">Organización</button>
+                    <button data-filter="funcionamiento"
+                        class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-100 text-slate-600 font-medium hover:bg-slate-200">Funcionamiento</button>
+                    <button data-filter="operacion"
+                        class="filter-btn px-2.5 py-1 text-xs rounded-md bg-slate-100 text-slate-600 font-medium hover:bg-slate-200">Operación</button>
+                </div>
+
+                <button id="btnCenter" title="Centrar mapa"
+                    class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition" aria-label="Centrar">
+                    <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 text-slate-700">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                        <path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+                <button id="btnZoomIn" title="Zoom +"
+                    class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition">
+                    <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 text-slate-700">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                        <path d="M11 8v6M8 11h6M20 20l-3-3" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+                <button id="btnZoomOut" title="Zoom −"
+                    class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition">
+                    <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 text-slate-700">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                        <path d="M8 11h6M20 20l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <button id="btnReset" title="Reiniciar"
+                    class="p-2 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition">
+                    <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
+                        <path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <div id="breadcrumbs"
+            class="px-5 pb-2 flex items-center gap-1.5 text-xs text-slate-500 overflow-x-auto whitespace-nowrap">
+            <span class="inline-flex items-center gap-1">
+                <svg viewBox="0 0 24 24" fill="none" class="w-3 h-3">
+                    <path d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2h-4v-6h-6v6H5a2 2 0 0 1-2-2V10z" stroke="currentColor"
+                        stroke-width="2" />
+                </svg>
+                Mapa conceptual
+            </span>
+        </div>
+    </header>
+
+    <!-- ============ LIENZO DEL MAPA ============ -->
+    <main id="canvas" class="fixed inset-0 top-[96px] cursor-grab active:cursor-grabbing select-none">
+        <!-- Fondo con cuadrícula -->
+        <div class="absolute inset-0 bg-grid"></div>
+
+        <!-- Contenedor pan/zoom -->
+        <div id="viewport" class="absolute inset-0">
+            <!-- SVG de líneas de conexión -->
+            <svg id="edgesLayer" class="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+                        orient="auto">
+                        <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8" />
+                    </marker>
+                </defs>
+                <g id="edges"></g>
+            </svg>
+            <!-- Capa de nodos -->
+            <div id="nodesLayer" class="absolute inset-0"></div>
+        </div>
+
+        <!-- Leyenda flotante -->
+        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur rounded-xl shadow-lg border border-slate-200 p-3 text-xs">
+            <p class="font-bold text-slate-700 mb-2 uppercase tracking-wide text-[10px]">Categorías</p>
+            <div class="space-y-1.5">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-500"></span><span>Identificación</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span>Organización</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-purple-500"></span><span>Funcionamiento</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-orange-500"></span><span>Operación</span></div>
+            </div>
+        </div>
+
+        <!-- Indicador zoom -->
+        <div id="zoomIndicator"
+            class="absolute bottom-4 right-4 bg-white/90 backdrop-blur rounded-lg shadow border border-slate-200 px-3 py-1.5 text-xs font-mono text-slate-600">
+            100%
+        </div>
+
+        <!-- Ayuda -->
+        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur rounded-xl shadow border border-slate-200 px-3 py-2 text-xs text-slate-600 max-w-[220px]">
+            <p class="font-semibold text-slate-700 mb-1">💡 Cómo usar</p>
+            <p>Arrastra el fondo para mover · Rueda del mouse para zoom · Click en nodo para ver detalle</p>
+        </div>
+    </main>
+
+    <!-- ============ PANEL LATERAL DE DETALLE ============ -->
+    <aside id="detailPanel"
+        class="fixed top-[96px] bottom-0 right-0 w-full max-w-xl bg-white border-l border-slate-200 shadow-2xl translate-x-full transition-transform duration-300 ease-out z-30 overflow-y-auto">
+        <div id="panelContent" class="p-6"></div>
+    </aside>
+
+    <!-- ============ TOOLTIP GLOBAL ============ -->
+    <div id="tooltip"
+        class="fixed pointer-events-none z-50 bg-slate-900 text-white text-xs rounded-lg px-3 py-2 shadow-xl opacity-0 transition-opacity duration-150 max-w-xs">
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/panel.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

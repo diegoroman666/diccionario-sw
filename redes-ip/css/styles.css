@@ -1,0 +1,241 @@
+/* ==============================================
+   REDES IP · Mapa conceptual interactivo
+   Estilos personalizados
+   ============================================== */
+
+* { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+html, body { height: 100%; margin: 0; }
+body { -webkit-font-smoothing: antialiased; }
+
+/* ---------- Fondo tipo cuadrícula ---------- */
+.bg-grid {
+    background-color: #f8fafc;
+    background-image:
+        linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+/* ---------- Viewport pan/zoom ---------- */
+#viewport {
+    transform-origin: 0 0;
+    will-change: transform;
+    transition: transform 0.05s linear;
+}
+#viewport.animating { transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* ---------- Nodos ---------- */
+.node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 16px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.06);
+    border: 2px solid transparent;
+    cursor: pointer;
+    min-width: 140px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    user-select: none;
+}
+.node:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15), 0 2px 6px rgba(15, 23, 42, 0.08);
+    z-index: 10;
+}
+.node.active {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 12px 36px rgba(79, 70, 229, 0.25);
+    z-index: 20;
+}
+.node.dimmed { opacity: 0.25; filter: grayscale(0.4); }
+
+.node-title { font-weight: 700; font-size: 14px; color: #0f172a; line-height: 1.2; }
+.node-sub { font-size: 11px; color: #64748b; margin-top: 2px; font-weight: 500; }
+
+/* Nodo raíz */
+.node.root {
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    border-color: #4338ca;
+    padding: 18px 26px;
+    min-width: 200px;
+    box-shadow: 0 8px 30px rgba(79, 70, 229, 0.35);
+}
+.node.root .node-title { color: white; font-size: 16px; }
+.node.root .node-sub { color: rgba(255,255,255,0.8); }
+
+/* Nodos categoría (hubs) */
+.node.hub {
+    padding: 14px 22px;
+    min-width: 170px;
+    font-weight: 800;
+}
+.node.hub .node-title { color: white; }
+.node.hub .node-sub { color: rgba(255,255,255,0.85); }
+
+.hub.cat-identificacion    { background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-color: #1e40af; }
+.hub.cat-organizacion      { background: linear-gradient(135deg, #10b981, #047857); border-color: #065f46; }
+.hub.cat-funcionamiento    { background: linear-gradient(135deg, #a855f7, #7e22ce); border-color: #6b21a8; }
+.hub.cat-operacion         { background: linear-gradient(135deg, #f97316, #c2410c); border-color: #9a3412; }
+
+/* Nodos hoja por categoría */
+.node.leaf.cat-identificacion    { border-color: #93c5fd; }
+.node.leaf.cat-identificacion .node-title::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; margin-right: 8px; vertical-align: middle; }
+.node.leaf.cat-organizacion      { border-color: #6ee7b7; }
+.node.leaf.cat-organizacion .node-title::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981; margin-right: 8px; vertical-align: middle; }
+.node.leaf.cat-funcionamiento    { border-color: #d8b4fe; }
+.node.leaf.cat-funcionamiento .node-title::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #a855f7; margin-right: 8px; vertical-align: middle; }
+.node.leaf.cat-operacion         { border-color: #fdba74; }
+.node.leaf.cat-operacion .node-title::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #f97316; margin-right: 8px; vertical-align: middle; }
+
+/* ---------- Aristas ---------- */
+.edge {
+    fill: none;
+    stroke: #cbd5e1;
+    stroke-width: 2;
+    transition: stroke 0.2s, stroke-width 0.2s, opacity 0.2s;
+}
+.edge.cat-identificacion { stroke: #93c5fd; }
+.edge.cat-organizacion   { stroke: #6ee7b7; }
+.edge.cat-funcionamiento { stroke: #d8b4fe; }
+.edge.cat-operacion      { stroke: #fdba74; }
+
+.edge.highlighted { stroke-width: 3; opacity: 1; }
+.edge.dimmed { opacity: 0.15; }
+
+/* ---------- Panel lateral ---------- */
+#detailPanel.open { transform: translateX(0); }
+
+.panel-section { margin-bottom: 20px; }
+.panel-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Términos con tooltip (referencia a diapositivas) */
+.term {
+    background: linear-gradient(180deg, transparent 60%, rgba(79, 70, 229, 0.12) 60%);
+    border-bottom: 1.5px dashed #818cf8;
+    padding: 0 1px;
+    cursor: help;
+    font-weight: 600;
+    color: #4338ca;
+    transition: background 0.15s;
+}
+.term:hover { background: rgba(79, 70, 229, 0.18); }
+
+/* Chip de relación */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: #334155;
+    margin: 3px 4px 3px 0;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    border: 1px solid transparent;
+}
+.chip:hover { background: #e2e8f0; transform: translateY(-1px); }
+.chip.cat-identificacion  { background: #dbeafe; color: #1e40af; }
+.chip.cat-organizacion    { background: #d1fae5; color: #065f46; }
+.chip.cat-funcionamiento  { background: #ede9fe; color: #6b21a8; }
+.chip.cat-operacion       { background: #ffedd5; color: #9a3412; }
+
+/* Bloque ejemplo */
+.example-box {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    position: relative;
+}
+.example-box::before {
+    content: "Ejemplo";
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #64748b;
+    font-family: 'Inter', sans-serif;
+}
+.example-box .hl { color: #fbbf24; }
+.example-box .cm { color: #64748b; font-style: italic; }
+.example-box .num { color: #60a5fa; }
+
+/* Badge de diapositiva */
+.slide-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: #eef2ff;
+    color: #4338ca;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid #c7d2fe;
+}
+
+/* Breadcrumbs interactivo */
+#breadcrumbs .crumb {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+#breadcrumbs .crumb:hover { background: #f1f5f9; color: #334155; }
+#breadcrumbs .crumb.active { color: #4338ca; font-weight: 600; background: #eef2ff; }
+
+/* Resultados de búsqueda */
+.search-result {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+.search-result:hover { background: #f8fafc; }
+.search-result:last-child { border-bottom: 0; }
+.search-result-title { font-weight: 600; font-size: 13px; color: #0f172a; }
+.search-result-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+
+/* Animación pulso nodo activo */
+@keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+    70% { box-shadow: 0 0 0 14px rgba(79, 70, 229, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+.node.active { animation: pulse-ring 1.8s infinite; }
+
+/* Scrollbar sutil */
+#detailPanel::-webkit-scrollbar { width: 8px; }
+#detailPanel::-webkit-scrollbar-track { background: transparent; }
+#detailPanel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+#detailPanel::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    #detailPanel { max-width: 100%; }
+    .node { min-width: 110px; padding: 10px 14px; }
+    .node.root { min-width: 160px; }
+}
