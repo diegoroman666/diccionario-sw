@@ -19,16 +19,21 @@
     <header class="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200">
         <div class="flex items-center justify-between px-5 py-3">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center shadow-md">
-                    <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-white">
-                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.2"
-                            stroke-linecap="round" />
-                        <circle cx="7" cy="6" r="1.6" fill="currentColor" />
-                        <circle cx="14" cy="12" r="1.6" fill="currentColor" />
-                        <circle cx="10" cy="18" r="1.6" fill="currentColor" />
+                <!-- Botón flotante: Ir al Diccionario -->
+                <a href="/"
+                    class="group flex items-center gap-2.5 pl-3 pr-4 py-2.5 rounded-full bg-gradient-to-br from-indigo-600 via-indigo-500 to-cyan-500 text-white font-bold text-sm shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200 border border-white/20"
+                    title="Volver al diccionario de Redes">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                    </span>
+                    <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                </div>
-                <div>
+                    <span>Diccionario</span>
+                </a>
+                <div class="hidden md:block">
                     <h1 class="text-sm font-bold text-slate-900 leading-tight">Configuración de Redes</h1>
                     <p class="text-xs text-slate-500 leading-tight">Direccionamiento IP · Mapa conceptual</p>
                 </div>
