@@ -119,33 +119,34 @@
 
     <!-- Botón flotante: Mapa Conceptual -->
     <a href="/redes-ip/"
-        class="fixed top-4 right-4 z-50 group flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-gradient-to-br from-indigo-600 via-indigo-500 to-cyan-500 text-white font-bold text-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border border-white/20"
+        class="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 group flex items-center gap-2 sm:gap-2.5 pl-3 pr-3.5 sm:pl-4 sm:pr-5 py-2.5 sm:py-3 rounded-full bg-gradient-to-br from-indigo-600 via-indigo-500 to-cyan-500 text-white font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border border-white/20"
         title="Abrir mapa conceptual interactivo de Redes IP">
-        <span class="relative flex h-2.5 w-2.5">
+        <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-white"></span>
         </span>
-        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
+        <svg viewBox="0 0 24 24" fill="none" class="w-3.5 h-3.5 sm:w-4 sm:h-4">
             <circle cx="6" cy="6" r="2.5" stroke="currentColor" stroke-width="2" />
             <circle cx="18" cy="6" r="2.5" stroke="currentColor" stroke-width="2" />
             <circle cx="12" cy="18" r="2.5" stroke="currentColor" stroke-width="2" />
             <path d="M8 7l3 9M16 7l-3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
         </svg>
-        <span>Mapa Conceptual</span>
+        <span class="sm:hidden">Mapa</span>
+        <span class="hidden sm:inline">Mapa Conceptual</span>
     </a>
 
-    <div class="min-h-screen flex flex-col items-center p-4 md:p-8">
+    <div class="min-h-screen flex flex-col items-center px-3 pt-16 pb-6 sm:px-4 sm:pt-4 sm:pb-4 md:p-8">
 
         <!-- ====== ENCABEZADO ====== -->
-        <header class="w-full max-w-6xl text-center mb-6 pt-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[10px] uppercase tracking-[0.25em] text-slate-300 mb-4">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-blink"></span>
-                Liceo Polivalente de Requínoa · 3° Medio TP
+        <header class="w-full max-w-6xl text-center mb-6 pt-2 sm:pt-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[9px] sm:text-[10px] uppercase tracking-[0.18em] sm:tracking-[0.25em] text-slate-300 mb-4 max-w-full">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-blink flex-shrink-0"></span>
+                <span class="truncate">Liceo Polivalente de Requínoa · 3° Medio TP</span>
             </div>
-            <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-2">
+            <h1 class="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-2">
                 Diccionario de <span class="bg-gradient-to-r from-amber-400 via-cyan-400 to-rose-400 bg-clip-text text-transparent">Redes</span>
             </h1>
-            <p class="text-sm text-slate-400 max-w-xl mx-auto">
+            <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto px-2">
                 20 conceptos organizados en 4 ejes temáticos, progresando desde la infraestructura física hasta la seguridad y servicios en la nube.
             </p>
         </header>
@@ -200,34 +201,34 @@
 
         <!-- ====== TARJETA PRINCIPAL ====== -->
         <main id="mainCard"
-            class="w-full max-w-6xl rounded-3xl overflow-hidden glass-strong border-2 border-transparent transition-all duration-500">
+            class="w-full max-w-6xl rounded-2xl sm:rounded-3xl overflow-hidden glass-strong border-2 border-transparent transition-all duration-500">
 
-            <div class="grid md:grid-cols-2 min-h-[560px]">
+            <div class="grid md:grid-cols-2 md:min-h-[560px]">
 
                 <!-- ==== PANEL IZQUIERDO · SIMULACIÓN ==== -->
-                <section class="p-6 md:p-8 flex flex-col border-b md:border-b-0 md:border-r border-white/5">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
+                <section class="p-4 sm:p-6 md:p-8 flex flex-col border-b md:border-b-0 md:border-r border-white/5">
+                    <div class="flex items-center justify-between mb-4 gap-2">
+                        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
                             <div id="concept-icon"
-                                class="p-3 rounded-2xl glass-strong flex items-center justify-center w-14 h-14"
+                                class="p-2.5 sm:p-3 rounded-2xl glass-strong flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0"
                                 style="color: var(--axis)">
                                 <!-- Icono dinámico -->
                             </div>
-                            <div>
-                                <div id="axis-label" class="text-[10px] uppercase tracking-widest font-bold axis-color">Eje 1 · Fundamentos</div>
-                                <div id="concept-position" class="text-[10px] text-slate-400 mono">1 de 5 en el eje</div>
+                            <div class="min-w-0">
+                                <div id="axis-label" class="text-[9px] sm:text-[10px] uppercase tracking-widest font-bold axis-color truncate">Eje 1 · Fundamentos</div>
+                                <div id="concept-position" class="text-[9px] sm:text-[10px] text-slate-400 mono">1 de 5 en el eje</div>
                             </div>
                         </div>
-                        <span id="osi-badge" class="chip axis-bg axis-color mono">Capa 3</span>
+                        <span id="osi-badge" class="chip axis-bg axis-color mono flex-shrink-0">Capa 3</span>
                     </div>
 
-                    <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-3 flex items-center gap-2">
+                    <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 flex items-center gap-2">
                         <span class="w-1.5 h-1.5 rounded-full axis-color animate-blink" style="background: var(--axis)"></span>
                         Simulación Técnica
                     </h4>
 
                     <div id="simulation-box"
-                        class="flex-1 glass rounded-3xl sim-grid overflow-hidden relative min-h-[320px] p-6">
+                        class="flex-1 glass rounded-2xl sm:rounded-3xl sim-grid overflow-hidden relative min-h-[260px] sm:min-h-[320px] p-3 sm:p-6">
                         <!-- Contenido dinámico -->
                     </div>
 
@@ -248,13 +249,13 @@
                 </section>
 
                 <!-- ==== PANEL DERECHO · CONTENIDO ==== -->
-                <section class="p-6 md:p-8 flex flex-col">
-                    <div class="flex items-center justify-between mb-6">
+                <section class="p-4 sm:p-6 md:p-8 flex flex-col">
+                    <div class="flex items-center justify-between mb-5 sm:mb-6 gap-2">
                         <span id="page-indicator"
                             class="chip axis-bg axis-color mono">
                             Concepto 1 / 20
                         </span>
-                        <div class="flex items-center gap-1 text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+                        <div class="flex items-center gap-1 text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest font-bold">
                             <span id="axis-indicator">Eje 1</span>
                             <span class="opacity-40">·</span>
                             <span id="axis-progress">1/5</span>
@@ -263,10 +264,10 @@
 
                     <div class="flex-1 animate-slide-up" id="contentAnim">
                         <h2 id="concept-title"
-                            class="text-3xl md:text-4xl font-black leading-tight mb-1 text-white">
+                            class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-1 text-white">
                             Cargando...
                         </h2>
-                        <p id="concept-subtitle" class="text-sm text-slate-400 mb-6 mono">...</p>
+                        <p id="concept-subtitle" class="text-xs sm:text-sm text-slate-400 mb-5 sm:mb-6 mono">...</p>
 
                         <div class="space-y-4">
                             <div class="glass rounded-2xl p-4 border-l-4 axis-border" style="border-left-color: var(--axis)">
@@ -337,7 +338,7 @@
             </div>
         </main>
 
-        <footer class="mt-6 text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] text-center">
+        <footer class="mt-6 text-slate-500 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.3em] text-center px-2">
             Guía Interactiva · Conectividad &amp; Redes · Módulo Configuración
         </footer>
     </div>

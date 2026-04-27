@@ -236,6 +236,22 @@ body { -webkit-font-smoothing: antialiased; }
 /* Responsive */
 @media (max-width: 768px) {
     #detailPanel { max-width: 100%; }
-    .node { min-width: 110px; padding: 10px 14px; }
-    .node.root { min-width: 160px; }
+    .node { min-width: 120px; padding: 10px 14px; }
+    .node-title { font-size: 13px; }
+    .node-sub { font-size: 10px; }
+    .node.root { min-width: 160px; padding: 14px 20px; }
+    .node.root .node-title { font-size: 15px; }
+    .node.hub { min-width: 150px; padding: 12px 18px; }
+    .panel-section { margin-bottom: 16px; }
+    .example-box { font-size: 12px; padding: 12px; }
+    .chip { font-size: 11px; padding: 5px 10px; }
+}
+
+@media (max-width: 480px) {
+    .node { min-width: 100px; padding: 8px 12px; border-radius: 12px; }
+    .node-title { font-size: 12px; }
+    .node-sub { font-size: 9px; }
+    .node.root { min-width: 140px; padding: 12px 16px; }
+    .node.root .node-title { font-size: 14px; }
+    .node.hub { min-width: 130px; padding: 10px 14px; }
 }
